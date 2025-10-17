@@ -50,3 +50,4 @@ Escolha suas fontes em: [fonts.google.com](https://fonts.google.com/)
 [Documentação React Native](https://reactnative.dev/docs/getting-started)
 
 [Documentação React Navigation](https://reactnavigation.org/docs/getting-started/)
+biblioteca font google react native

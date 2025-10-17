@@ -9,6 +9,7 @@ export default estilo = StyleSheet.create({
     txtMedio:{
         fontSize: 30,
         fontFamily : "Roboto-Bold",
+        color: '#ff0000'
     },
     txtPequeno:{
         fontSize: 18,
