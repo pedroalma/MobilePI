@@ -1,7 +1,7 @@
 import React from "react";
 import { View ,Text ,StyleSheet, Image} from "react-native";
 import { useNavigation } from '@react-navigation/native';
-import estilo from "../assets/estilo";
+import estilo from "../../assets/estilo";
 
 export default () => {
     const navigation = useNavigation();

@@ -4,7 +4,7 @@ import {StyleSheet} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import home from "./Home/home";
+import home from "./components/Home/home";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +14,7 @@ export default props =>{
             <NavigationContainer>
                 <Stack.Navigator initialRouteName="home">
                     <Stack.Screen name="home" component={home} />
+                    
                 </Stack.Navigator>
             </NavigationContainer>
         </SafeAreaView> 
