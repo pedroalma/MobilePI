@@ -8,7 +8,7 @@ export default () => {
     return(
         <View >
             <Text style={estilo.txtMedio}>Home Screen</Text>
-            <Image source={require('../assets/icons/lock.png')}/>
+            <Image source={require('../../assets/icons/lock.png')}/>
         </View>
     )
 }
