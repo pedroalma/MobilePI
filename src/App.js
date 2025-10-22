@@ -8,32 +8,21 @@ import home from "./components/Home/home";
 
 const Stack = createNativeStackNavigator();
 
-export default function AppStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="home"
-        component={Home}
-        options={{
-          title: 'Início',
-          headerLeft: () => (
-            <TouchableOpacity onPress={() => alert('Menu clicado!')}>
-              <Image
-                source={require('./src/assets/icons/menu.png')}
-                style={{ width: 25, height: 25, marginLeft: 15 }}
-              />
-            </TouchableOpacity>
-          ),
-          headerRight: () => (
-            <TouchableOpacity onPress={() => alert('Notificações')}>
-              <Image
-                source={require('./src/assets/icons/notification.png')}
-                style={{ width: 25, height: 25, marginRight: 15 }}
-              />
-            </TouchableOpacity>
-          ),
-        }}
-      />
-    </Stack.Navigator>
-  );
+export default props =>{
+    return(
+        <SafeAreaView style={styles.container}>
+            <NavigationContainer>
+                <Stack.Navigator initialRouteName="home">
+                    <Stack.Screen name="home" component={home}  />
+                    
+                </Stack.Navigator>
+            </NavigationContainer>
+        </SafeAreaView> 
+    )
 }
+const styles = StyleSheet.create({
+    container:{
+        flex:1,
+    }
+});
+
