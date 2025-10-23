@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Login from "./components/Login/Login"
 import home from "./components/Home/home";
+import Home from "./components/Home/home";
 
 const Stack = createNativeStackNavigator();
 
@@ -13,7 +14,7 @@ export default props =>{
     return(
         <SafeAreaView style={styles.container}>
             <NavigationContainer>
-                <Login />
+                <Home />
             </NavigationContainer>
         </SafeAreaView> 
     )
