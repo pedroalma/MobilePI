@@ -40,12 +40,11 @@ export default props => {
         <TouchableOpacity style={styles.button}>
           <Text style={styles.txtButton}>Acessar</Text>
         </TouchableOpacity>
-        <View>
+
+        <View style={styles.cadastro}>
+          <Text style={styles.linkCadastro}>Não tem uma conta?</Text>
           <TouchableOpacity>
-            <Text style={styles.linkCadastro}>
-              Não tem uma conta? 
             <Text style={styles.negrito}>Cadastre-se</Text>
-            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -115,12 +114,17 @@ const styles = StyleSheet.create({
   },
 
   linkCadastro: {
-    marginTop: 20,
-    textAlign: 'center',
     color: 'red',
   },
   negrito: {
     fontWeight: 'bold',
     color: '#007bff',
+  },
+  cadastro: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 20,
+    gap: 8
   },
 });
