@@ -1,9 +1,10 @@
 import React from "react";
 import { SafeAreaView  } from "react-native-safe-area-context";
-import {StyleSheet} from "react-native";
+import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+import Login from "./components/Login/Login"
 import home from "./components/Home/home";
 
 const Stack = createNativeStackNavigator();
@@ -12,10 +13,7 @@ export default props =>{
     return(
         <SafeAreaView style={styles.container}>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="home">
-                    <Stack.Screen name="home" component={home}  />
-                    
-                </Stack.Navigator>
+                <Login />
             </NavigationContainer>
         </SafeAreaView> 
     )
