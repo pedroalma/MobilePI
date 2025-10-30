@@ -8,6 +8,7 @@ import Login from "./components/Login/Login"
 import home from "./components/Home/home";
 import Home from "./components/Home/home";
 import NossosHorarios from "./components/NossosHorarios";
+import QuemSomos from "./components/QuemSomos/QuemSomos";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,7 +16,7 @@ export default props =>{
     return(
         <SafeAreaView style={styles.container}>
             <NavigationContainer>
-                <NossosHorarios />
+                <QuemSomos />
             </NavigationContainer>
         </SafeAreaView> 
     )
