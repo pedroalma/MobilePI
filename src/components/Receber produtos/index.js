@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { TextInput, View, StyleSheet, Image, TouchableOpacity, Text } from "react-native";
-import { Picker } from "@react-native-picker/picker";;
+import { Picker } from "@react-native-picker/picker";
 
 
 export default props => {

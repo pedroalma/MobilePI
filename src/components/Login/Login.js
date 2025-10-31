@@ -46,6 +46,7 @@ export default props => {
           <TouchableOpacity>
             <Text style={styles.negrito}>Cadastre-se</Text>
           </TouchableOpacity>
+          
         </View>
       </View>
     </View>

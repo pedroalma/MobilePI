@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { View,Text,Image,TextInput,TouchableOpacity,StyleSheet,ScrollView} from "react-native";
 import estilo from "../../assets/estilo";
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Picker } from "@react-native-picker/picker";
+
+
 
 export default props => {
     const navigation = useNavigation();
+    const [selecionaComida, setSelecionaComida] = useState(null);
+
     return(
         <ScrollView style={styles.container}>
         <View >
@@ -73,13 +78,89 @@ export default props => {
                     </View>
                 </View>
             </View>
-            <View style={styles.textcontatos}>
-                
+            <View style={{flexDirection: 'row',justifyContent: 'space-between',marginTop:20}}>
+                <View>
                         <TextInput
                           placeholder="Nome:"
-                          maxLength={100}
-                          placeholderTextColor="#1D2D2E"
+                          maxLength={20}
+                            style={styles.textcontatos}  
                         />
+                        <TextInput
+                          placeholder="Email:"
+                          maxLength={20}
+                            style={styles.textcontatos}  
+                        />
+                        <TextInput
+                          placeholder="Bairro:"
+                          maxLength={20}
+                            style={styles.textcontatos}  
+                        />
+                        <TextInput
+                          placeholder="Cidade:"
+                          maxLength={20}
+                            style={styles.textcontatos}  
+                        />
+                        <TextInput
+                          placeholder="Estado:"
+                          maxLength={20}
+                            style={styles.textcontatos}  
+                        />
+                        <TextInput
+                          placeholder="CEP:"
+                          maxLength={20}
+                            style={styles.textcontatos}  
+                        />
+                        <View style={styles.textcontatos}>
+                         <Picker
+                            selectedValue={selecionaComida}
+                            onValueChange={setSelecionaComida}
+                            mode="dropdown"
+                            dropdownIconColor="#000"
+                        >
+                        <Picker.Item label="Assunto " value={null} />
+                        {["Cursos", "Horários", "Localização", "informações", "Atendimento"].map((item) => (
+                        <Picker.Item key={item} label={item} value={item} />
+                        ))}
+                        {selecionaComida && <Text style={{fontSize:10,}}>Você escolheu:{selecionaComida}</Text>}
+                        </Picker>
+                        </View>
+
+                        <TextInput
+                          placeholder="Mensagem:"
+                          maxLength={100}
+                            style={styles.textConMensa}  
+                        />
+                        <TouchableOpacity style={styles.textconenviar}>
+                           <Text style={styles.textenviar}>Enviar</Text> 
+                        </TouchableOpacity>
+                    </View>
+                        <View style={{marginRight:10,}}>
+                            <View style={styles.caixaImg}>
+                                <TouchableOpacity style={estilo.logo} >
+                                <Image
+                                   source={require('../../assets/icons/insta.png')}
+                                   
+                                />
+                                <Text style={estilo.txtPequeno}>gruposocorristafrancisco</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.caixaImg}>
+                                <TouchableOpacity style={estilo.logo} >
+                                <Image
+                                   source={require('../../assets/icons/youtube.png')}
+                                />
+                                <Text style={estilo.txtPequeno}>@gruposocorristafranciscode6211</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.caixaImg}>
+                                <TouchableOpacity style={estilo.logo} >
+                                <Image
+                                   source={require('../../assets/icons/facebook.png')}
+                                />
+                                <Text style={estilo.txtPequeno}>gruposocorristafranciscodeassis</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
             </View>
         </View>
         </ScrollView>
@@ -138,6 +219,43 @@ const styles =  StyleSheet.create({
         borderColor: '#215727'
     },
     textcontatos:{
-
+        borderWidth: 2,
+        borderColor: '#215727',
+        borderRadius: 10,
+        marginLeft: 10,
+        marginTop:5,
+        width: '200%',
     },
+    textConMensa:{
+        borderWidth: 2,
+        borderColor: '#215727',
+        borderRadius: 10,
+        marginLeft: 10,
+        marginTop: 5,
+        width: '200%',
+        height:'10%',
+    },
+    textconenviar:{
+        borderWidth: 2,
+        borderColor: '#215727',
+        borderRadius: 10,
+        marginLeft: 10,
+        marginBottom:20,
+        marginTop: 5,
+        width: '100%',
+    },
+    textenviar:{
+        textAlign: 'center',
+        fontSize:20,
+    },
+    caixaImg:{
+        borderWidth: 2,
+        borderColor: '#215727',
+        marginTop: 5,
+        paddingBottom:"10%",
+        paddingTop:"10%",
+        alignItems:'center',
+        justifyContent:'center',
+        borderRadius: 10,
+    }
 });

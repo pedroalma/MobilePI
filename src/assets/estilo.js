@@ -11,12 +11,10 @@ export default estilo = StyleSheet.create({
     fontFamily: 'Roboto-Bold',
   },
   txtPequeno: {
-    fontSize: 18,
-    fontFamily: 'Roboto-Bold',
+    fontSize: 12,
   },
-
   logo: {
-    width: 170,
-    height: 150,
+    alignItems:"center",
+    justifyContent:"center"
   },
 });
