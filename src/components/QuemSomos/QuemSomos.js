@@ -90,26 +90,7 @@ export default props => {
                           maxLength={20}
                             style={styles.textcontatos}  
                         />
-                        <TextInput
-                          placeholder="Bairro:"
-                          maxLength={20}
-                            style={styles.textcontatos}  
-                        />
-                        <TextInput
-                          placeholder="Cidade:"
-                          maxLength={20}
-                            style={styles.textcontatos}  
-                        />
-                        <TextInput
-                          placeholder="Estado:"
-                          maxLength={20}
-                            style={styles.textcontatos}  
-                        />
-                        <TextInput
-                          placeholder="CEP:"
-                          maxLength={20}
-                            style={styles.textcontatos}  
-                        />
+                       
                         <View style={styles.textcontatos}>
                          <Picker
                             selectedValue={selecionaComida}
@@ -233,7 +214,7 @@ const styles =  StyleSheet.create({
         marginLeft: 10,
         marginTop: 5,
         width: '200%',
-        height:'10%',
+        
     },
     textconenviar:{
         borderWidth: 2,
