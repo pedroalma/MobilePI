@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View,Text,Image,TextInput,TouchableOpacity,StyleSheet,ScrollView} from "react-native";
+import { View,Text,Image,TextInput,TouchableOpacity,StyleSheet,ScrollView, Linking} from "react-native";
 import estilo from "../../assets/estilo";
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -9,8 +9,8 @@ import { Picker } from "@react-native-picker/picker";
 
 export default props => {
     const navigation = useNavigation();
-    const [selecionaComida, setSelecionaComida] = useState(null);
-
+    const [selecionaAssunto, setSelecionaAssunto] = useState(null);
+    
     return(
         <ScrollView style={styles.container}>
         <View >
@@ -60,6 +60,7 @@ export default props => {
                     <Image 
                     source={require('../../assets/icons/Rectangle.png')}
                     style={styles.imgemGaleria}
+                    
                     />
                     <Image 
                     source={require('../../assets/icons/Rectangle.png')}
@@ -93,16 +94,16 @@ export default props => {
                        
                         <View style={styles.textcontatos}>
                          <Picker
-                            selectedValue={selecionaComida}
-                            onValueChange={setSelecionaComida}
+                            selectedValue={selecionaAssunto}
+                            onValueChange={setSelecionaAssunto}
                             mode="dropdown"
                             dropdownIconColor="#000"
                         >
-                        <Picker.Item label="Assunto " value={null} />
+                        <Picker.Item label="Assunto" value={null} />
                         {["Cursos", "Horários", "Localização", "informações", "Atendimento"].map((item) => (
                         <Picker.Item key={item} label={item} value={item} />
                         ))}
-                        {selecionaComida && <Text style={{fontSize:10,}}>Você escolheu:{selecionaComida}</Text>}
+                        {selecionaAssunto && <Text style={{fontSize:10,}}>Você escolheu:{selecionaAssunto}</Text>}
                         </Picker>
                         </View>
 
@@ -117,16 +118,15 @@ export default props => {
                     </View>
                         <View style={{marginRight:10,}}>
                             <View style={styles.caixaImg}>
-                                <TouchableOpacity style={estilo.logo} >
+                                <TouchableOpacity style={estilo.logo} onPress={() => Linking.openURL("https://www.instagram.com/gruposocorristafrancisco/")} >
                                 <Image
                                    source={require('../../assets/icons/insta.png')}
-                                   
                                 />
                                 <Text style={estilo.txtPequeno}>gruposocorristafrancisco</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.caixaImg}>
-                                <TouchableOpacity style={estilo.logo} >
+                                <TouchableOpacity style={estilo.logo} onPress={() => Linking.openURL("https://www.youtube.com/@gruposocorristafranciscode6211/videos")} >
                                 <Image
                                    source={require('../../assets/icons/youtube.png')}
                                 />
@@ -134,7 +134,7 @@ export default props => {
                                 </TouchableOpacity>
                             </View>
                             <View style={styles.caixaImg}>
-                                <TouchableOpacity style={estilo.logo} >
+                                <TouchableOpacity style={estilo.logo} onPress={() => Linking.openURL("https://www.facebook.com/gruposocorristafranciscodeassis")} >
                                 <Image
                                    source={require('../../assets/icons/facebook.png')}
                                 />
