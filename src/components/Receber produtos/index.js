@@ -2,17 +2,20 @@ import React, { useState } from "react";
 import { TextInput, View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useNavigation } from "@react-navigation/native"; 
 import Relatorios from "../Relatorios";
 import { Icon } from "react-native-paper";
 
 const Tab = createBottomTabNavigator();
 
 function Cadastro() {
-    const [selecionaComida, setSelecionaComida] = useState();
+    const [selecionaComida, setSelecionaComida] = useState(null); 
     const [peso, setPeso] = useState('');
     const [data, setData] = useState('');
     const [descricao, setDescricao] = useState('');
     const [dataReceb, setDataReceb] = useState('');
+    
+    const navigation = useNavigation(); 
 
     const handleChange = (text, setter) => {
         let cleaned = text.replace(/\D/g, '');
@@ -30,10 +33,11 @@ function Cadastro() {
             return;
         }
 
-        const novoItem = [selecionaComida, peso, data, dataReceb];
+        const novoItem = [selecionaComida, peso, data, descricao, dataReceb];
 
         navigation.navigate("Relatórios", { novoItem });
 
+        
         setSelecionaComida(null);
         setPeso('');
         setData('');
@@ -59,7 +63,6 @@ function Cadastro() {
                         <Picker.Item label="Açúcar" value="Açúcar" />
                         <Picker.Item label="Café" value="Café" />
                     </Picker>
-                    
                 </View>
 
                 <View style={{ alignItems: "center", gap: 45, justifyContent: "center", flexDirection: "row" }}>
@@ -67,6 +70,8 @@ function Cadastro() {
                         placeholder="Peso/Líquido"
                         style={styles.input}
                         maxLength={5}
+                        value={peso} 
+                        onChangeText={setPeso} 
                     />
                     <TextInput
                         placeholder="Validade"
@@ -82,6 +87,8 @@ function Cadastro() {
                     placeholder="Descrição"
                     style={styles.descricao}
                     multiline={true}
+                    value={descricao} 
+                    onChangeText={setDescricao} 
                 />
 
                 <TextInput
@@ -93,7 +100,7 @@ function Cadastro() {
                     onChangeText={(t) => handleChange(t, setDataReceb)}
                 />
 
-                <TouchableOpacity style={styles.btnconfirm}>
+                <TouchableOpacity style={styles.btnconfirm} onPress={handleConfirm}>
                     <Text style={styles.txtbtnconfirm}>Confirmar</Text>
                 </TouchableOpacity>
             </View>

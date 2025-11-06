@@ -1,36 +1,161 @@
 import React, { useState, useCallback } from "react";
-import { StyleSheet, View } from "react-native";
-import { Table, Row, Rows } from "react-native-table-component";
-import { useFocusEffect, useRoute } from "@react-navigation/native";
+import { StyleSheet, View, TextInput, TouchableOpacity, Text } from "react-native";
+import { Table, Row } from "react-native-table-component";
+import { useFocusEffect, useRoute, useNavigation } from "@react-navigation/native";
 
 export default function Relatorios() {
   const route = useRoute();
+  const navigation = useNavigation();
   const [tableData, setTableData] = useState([]);
+  const [editingIndex, setEditingIndex] = useState(null); 
+  const [editData, setEditData] = useState([]); 
 
   useFocusEffect(
     useCallback(() => {
       if (route.params?.novoItem) {
         setTableData((prev) => [...prev, route.params.novoItem]);
+        
+        navigation.setParams({ novoItem: null });
       }
-    }, [route.params])
+    }, [route.params, navigation])
   );
+
+ 
+  const startEditing = (index) => {
+    setEditingIndex(index);
+    setEditData([...tableData[index]]); 
+  };
+
+  
+  const saveEditing = () => {
+    const newData = [...tableData];
+    newData[editingIndex] = editData;
+    setTableData(newData);
+    setEditingIndex(null);
+    setEditData([]);
+  };
+
+  
+  const cancelEditing = () => {
+    setEditingIndex(null);
+    setEditData([]);
+  };
+
+  
+  const deleteRow = (index) => {
+    setTableData((prev) => prev.filter((_, i) => i !== index));
+  };
 
   return (
     <View style={styles.container}>
       <Table borderStyle={{ borderWidth: 1 }}>
+        
         <Row
-          data={["Produto", "Peso", "Validade", "Recebimento"]}
+          data={["Produto", "Peso", "Validade", "Descrição", "Recebimento", "Ações"]}
           style={styles.head}
           textStyle={styles.text}
         />
-        <Rows data={tableData} textStyle={styles.text} />
+        {tableData.map((row, index) => (
+          <Row
+            key={index}
+            data={
+              editingIndex === index
+                ? [
+                    <TextInput
+                      style={styles.input}
+                      value={editData[0] || ""}
+                      onChangeText={(text) => {
+                        const newEdit = [...editData];
+                        newEdit[0] = text;
+                        setEditData(newEdit);
+                      }}
+                    />,
+                    <TextInput
+                      style={styles.input}
+                      value={editData[1] || ""}
+                      onChangeText={(text) => {
+                        const newEdit = [...editData];
+                        newEdit[1] = text;
+                        setEditData(newEdit);
+                      }}
+                    />,
+                    <TextInput
+                      style={styles.input}
+                      value={editData[2] || ""}
+                      onChangeText={(text) => {
+                        const newEdit = [...editData];
+                        newEdit[2] = text;
+                        setEditData(newEdit);
+                      }}
+                    />,
+                    <TextInput
+                      style={styles.input}
+                      value={editData[3] || ""}
+                      onChangeText={(text) => {
+                        const newEdit = [...editData];
+                        newEdit[3] = text;
+                        setEditData(newEdit);
+                      }}
+                    />,
+                    <TextInput
+                      style={styles.input}
+                      value={editData[4] || ""}
+                      onChangeText={(text) => {
+                        const newEdit = [...editData];
+                        newEdit[4] = text;
+                        setEditData(newEdit);
+                      }}
+                    />,
+
+                    <View style={styles.buttonContainer}>
+                      <TouchableOpacity onPress={saveEditing} style={styles.button}>
+                        <Text style={styles.buttonText}>Salvar</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={cancelEditing} style={styles.button}>
+                        <Text style={styles.buttonText}>Cancelar</Text>
+                      </TouchableOpacity>
+                    </View>,
+                  ]
+                : [
+                    
+                    row[0], row[1], row[2], row[3], row[4],
+                    
+                    <View style={styles.buttonContainer}>
+                      <TouchableOpacity onPress={() => startEditing(index)} style={styles.button}>
+                        <Text style={styles.buttonText}>Editar</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={() => deleteRow(index)} style={styles.button}>
+                        <Text style={styles.buttonText}>Excluir</Text>
+                      </TouchableOpacity>
+                    </View>,
+                  ]
+            }
+            textStyle={styles.text}
+          />
+        ))}
       </Table>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16,  },
+  container: { flex: 1, padding: 16 },
   head: { height: 40, backgroundColor: "#f1f8ff" },
   text: { textAlign: "center" },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    padding: 5,
+    margin: 2,
+    flex: 1,
+    textAlign: "center",
+  },
+  buttonContainer: { flexDirection: "row", justifyContent: "space-around" },
+  button: {
+    backgroundColor: "#007bff",
+    padding: 5,
+    margin: 2,
+    borderRadius: 5,
+  },
+  buttonText: { color: "#fff", textAlign: "center" },
 });
