@@ -17,7 +17,7 @@ export default props =>{
     return(
         <SafeAreaView style={styles.container}>
             <NavigationContainer>
-                <Receber/>
+                <NossosHorarios/>
             </NavigationContainer>
         </SafeAreaView> 
     )

@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
   },
   atividade: {
     textAlign: 'center',
+    fontFamily: 'Roboto-Bold',
     marginVertical: 2,
     color: '#444',
   },
