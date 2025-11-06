@@ -66,13 +66,30 @@ function Cadastro() {
                 </View>
 
                 <View style={{ alignItems: "center", gap: 45, justifyContent: "center", flexDirection: "row" }}>
-                    <TextInput
-                        placeholder="Peso/Líquido"
+                
+                    <View style={styles.inputPicker}>
+                    <Picker
+                        selectedValue={peso}
+                        onValueChange={setPeso}
+                        mode="dropdown"
+                        dropdownIconColor="#000"
                         style={styles.input}
-                        maxLength={5}
-                        value={peso} 
-                        onChangeText={setPeso} 
-                    />
+                    >
+                        <Picker.Item label="Peso/Líquido" value={null} />
+                        <Picker.Item label="200g" value="200g" />
+                        <Picker.Item label="500g" value="500g" />
+                        <Picker.Item label="1kg" value="1kg" />
+                        <Picker.Item label="2kg" value="2kg" />
+                        <Picker.Item label="5kg" value="5kg" />
+                        <Picker.Item label="10kg" value="10kg" />
+                        <Picker.Item label="200ML" value="200ML" />
+                        <Picker.Item label="500ML" value="500ML" />
+                        <Picker.Item label="1L" value="1L" />
+                    </Picker>
+                </View>
+
+
+
                     <TextInput
                         placeholder="Validade"
                         style={styles.input}
@@ -145,6 +162,20 @@ const styles = StyleSheet.create({
         width: 150,
         borderRadius: 8,
         padding: 5
+    },
+    
+        inputPicker:{
+            borderWidth: 2,
+            borderColor: "#215727",
+            width: 150,
+            borderRadius: 8,
+            padding: 0,
+            height: 30,
+            alignItems: "center",
+            justifyContent: "center",
+            alignSelf: "center",
+            overflow: "hidden",
+        
     },
     descricao: {
         borderWidth: 2,
