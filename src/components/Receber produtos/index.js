@@ -1,32 +1,53 @@
 import React, { useState } from "react";
-import { TextInput, View, StyleSheet, Image, TouchableOpacity, Text } from "react-native";
+import { TextInput, View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Relatorios from "../Relatorios";
+import { Icon } from "react-native-paper";
 
+const Tab = createBottomTabNavigator();
 
-export default props => {
+function Cadastro() {
     const [selecionaComida, setSelecionaComida] = useState();
+    const [peso, setPeso] = useState('');
+    const [data, setData] = useState('');
+    const [descricao, setDescricao] = useState('');
+    const [dataReceb, setDataReceb] = useState('');
 
-   const [data, setData] = useState('');
-   const [dataReceb, setDataReceb] = useState('');
+    const handleChange = (text, setter) => {
+        let cleaned = text.replace(/\D/g, '');
+        if (cleaned.length > 2 && cleaned.length <= 4) {
+            cleaned = cleaned.slice(0, 2) + '/' + cleaned.slice(2);
+        } else if (cleaned.length > 4) {
+            cleaned = cleaned.slice(0, 2) + '/' + cleaned.slice(2, 4) + '/' + cleaned.slice(4, 8);
+        }
+        setter(cleaned.slice(0, 10));
+    };
 
- const handleChange = (text, setter) => {
-  let cleaned = text.replace(/\D/g, '');
-  if (cleaned.length > 2 && cleaned.length <= 4) {
-    cleaned = cleaned.slice(0, 2) + '/' + cleaned.slice(2);
-  } else if (cleaned.length > 4) {
-    cleaned = cleaned.slice(0, 2) + '/' + cleaned.slice(2, 4) + '/' + cleaned.slice(4, 8);
-  }
-  setter(cleaned.slice(0, 10));
-};
+    const handleConfirm = () => {
+        if (!selecionaComida || !peso || !data || !descricao || !dataReceb) {
+            alert("⚠️ Preencha todos os campos!");
+            return;
+        }
+
+        const novoItem = [selecionaComida, peso, data, dataReceb];
+
+        navigation.navigate("Relatórios", { novoItem });
+
+        setSelecionaComida(null);
+        setPeso('');
+        setData('');
+        setDescricao('');
+        setDataReceb('');
+    };
 
     return (
         <View style={styles.container}>
             <View style={styles.centralizaitem}>
-
                 <View style={styles.Pickerborder}>
                     <Picker
                         selectedValue={selecionaComida}
-                        onValueChange={(itemValue, itemIndex) => setSelecionaComida(itemValue)}
+                        onValueChange={(itemValue) => setSelecionaComida(itemValue)}
                         mode="dropdown"
                         dropdownIconColor="#000"
                         style={styles.Picker}
@@ -35,46 +56,88 @@ export default props => {
                         <Picker.Item label="Arroz" value="Arroz" />
                         <Picker.Item label="Feijão" value="Feijão" />
                         <Picker.Item label="Macarrão" value="Macarrão" />
-                        <Picker.Item label="Açucar" value="Açucar" />
+                        <Picker.Item label="Açúcar" value="Açúcar" />
                         <Picker.Item label="Café" value="Café" />
-
                     </Picker>
-                    {selecionaComida && (
-                        <Text>Você escolheu: {selecionaComida}</Text>
-                    )}
-                </View>
-                <View style={{ alignItems: "center", gap: 45, justifyContent: "center", flexDirection: "row" }}>
-                    <TextInput placeholder="Peso/Liquído" style={styles.input} maxLength={5}/>
-                    <TextInput placeholder="Validade" style={styles.input} maxLength={10} keyboardType="numeric" value={data} onChangeText={(t) => handleChange(t, setData)} />
-                </View>
-                <View style={styles.centralizaitem}>
-                    <TextInput placeholder="Descrição" style={styles.descricao} multiline={true} />
-                </View>
-                <View style={styles.centralizaitem}>
-                    <TextInput placeholder="Data de Recebimento" style={styles.dtreceb}  maxLength={10} keyboardType="numeric" value={dataReceb} onChangeText={(t) => handleChange(t,setDataReceb)} />
-                </View>
-                <View style={styles.centralizaitem}>
-                    <TouchableOpacity style={styles.btnconfirm}>
-                        <Text style={styles.txtbtnconfirm}> Confirmar </Text>
-                    </TouchableOpacity>
+                    
                 </View>
 
+                <View style={{ alignItems: "center", gap: 45, justifyContent: "center", flexDirection: "row" }}>
+                    <TextInput
+                        placeholder="Peso/Líquido"
+                        style={styles.input}
+                        maxLength={5}
+                    />
+                    <TextInput
+                        placeholder="Validade"
+                        style={styles.input}
+                        maxLength={10}
+                        keyboardType="numeric"
+                        value={data}
+                        onChangeText={(t) => handleChange(t, setData)}
+                    />
+                </View>
+
+                <TextInput
+                    placeholder="Descrição"
+                    style={styles.descricao}
+                    multiline={true}
+                />
+
+                <TextInput
+                    placeholder="Data de Recebimento"
+                    style={styles.dtreceb}
+                    maxLength={10}
+                    keyboardType="numeric"
+                    value={dataReceb}
+                    onChangeText={(t) => handleChange(t, setDataReceb)}
+                />
+
+                <TouchableOpacity style={styles.btnconfirm}>
+                    <Text style={styles.txtbtnconfirm}>Confirmar</Text>
+                </TouchableOpacity>
             </View>
         </View>
+    );
+}
 
-    )
+export default function AppTabs() {
+    return (
+        <Tab.Navigator screenOptions={{
+            headerShown: false,
+            tabBarStyle:{
+                backgroundColor:"#fff",
+                width: "100%",
+                height: 80,
+                color: "#000",
+                paddingTop:10
+            }
+        }}>
+            <Tab.Screen name="Cadastro" component={Cadastro} options={{
+                tabBarIcon: ({ }) => (
+                    <Icon source="hospital-box" size={30} color="#215727" />
+                )
+            }}/>
+            <Tab.Screen name="Relatórios" component={Relatorios} options={{
+                tabBarIcon: ({ }) => (
+                    <Icon source="text-box" size={30} color="#215727" />
+                )
+            }}/>
+        </Tab.Navigator>
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        top:55
+        top: 55,
     },
     input: {
         borderWidth: 2,
         borderColor: "#215727",
         width: 150,
-        borderRadius: 8
+        borderRadius: 8,
+        padding: 5
     },
     descricao: {
         borderWidth: 2,
@@ -82,6 +145,8 @@ const styles = StyleSheet.create({
         width: 350,
         height: 150,
         borderRadius: 8,
+        padding: 10,
+        textAlignVertical: "top"
     },
     dtreceb: {
         borderWidth: 2,
@@ -89,23 +154,24 @@ const styles = StyleSheet.create({
         width: 350,
         height: 50,
         borderRadius: 8,
+        padding: 10
     },
     Picker: {
         height: 50,
-        width: 340,
+        width: 340
     },
     Pickerborder: {
         alignItems: "center",
         justifyContent: "center",
         borderWidth: 2,
-        borderColor: "#215727",  
+        borderColor: "#215727",
         borderRadius: 8
     },
     centralizaitem: {
         alignItems: "center",
         justifyContent: "center",
         padding: 15,
-        gap:10
+        gap: 10
     },
     btnconfirm: {
         width: 350,
@@ -120,4 +186,4 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: "bold"
     }
-})
+});
