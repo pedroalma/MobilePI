@@ -26,7 +26,7 @@ export default props => {
         </TouchableOpacity>
       </View>
  
-      <View style={{ alignItems: 'center' }}>
+      <View style={{ alignItems: 'center', margin: 40 }}>
         <Text variant="headlineSmall" style={styles.titulo}>
           Nossos Horários
         </Text>
