@@ -5,7 +5,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Login from "./components/Login/Login"
-import home from "./components/Home/home";
 import Home from "./components/Home/home";
 import NossosHorarios from "./components/NossosHorarios";
 import QuemSomos from "./components/QuemSomos/QuemSomos";
@@ -17,7 +16,7 @@ export default props =>{
     return(
         <SafeAreaView style={styles.container}>
             <NavigationContainer>
-                <NossosHorarios/>
+                <Home/>
             </NavigationContainer>
         </SafeAreaView> 
     )
