@@ -33,21 +33,11 @@ export default props => {
           placeholderTextColor="#1D2D2E"
         />
 
-        <TouchableOpacity>
-          <Text style={styles.linkEsqueceu}>Esqueceu sua senha?</Text>
-        </TouchableOpacity>
-
         <TouchableOpacity style={styles.button}>
           <Text style={styles.txtButton}>Acessar</Text>
         </TouchableOpacity>
 
-        <View style={styles.cadastro}>
-          <Text style={styles.linkCadastro}>Não tem uma conta?</Text>
-          <TouchableOpacity>
-            <Text style={styles.negrito}>Cadastre-se</Text>
-          </TouchableOpacity>
-          
-        </View>
+        
       </View>
     </View>
   );
@@ -106,26 +96,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '101026',
-  },
-
-  linkEsqueceu: {
-    textAlign: 'right',
-    color: '#007bff',
-    marginBottom: 10,
-  },
-
-  linkCadastro: {
-    color: 'red',
-  },
-  negrito: {
-    fontWeight: 'bold',
-    color: '#007bff',
-  },
-  cadastro: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 20,
-    gap: 8
   },
 });

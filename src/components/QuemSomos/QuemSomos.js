@@ -9,7 +9,6 @@ import { Picker } from "@react-native-picker/picker";
 
 export default props => {
     const navigation = useNavigation();
-    const [selecionaAssunto, setSelecionaAssunto] = useState(null);
     
     return(
         <ScrollView style={styles.container}>
@@ -79,70 +78,9 @@ export default props => {
                     </View>
                 </View>
             </View>
-            <View style={{flexDirection: 'row',justifyContent: 'space-between',marginTop:20}}>
-                <View>
-                        <TextInput
-                          placeholder="Nome:"
-                          maxLength={20}
-                            style={styles.textcontatos}  
-                        />
-                        <TextInput
-                          placeholder="Email:"
-                          maxLength={20}
-                            style={styles.textcontatos}  
-                        />
-                       
-                        <View style={styles.textcontatos}>
-                         <Picker
-                            selectedValue={selecionaAssunto}
-                            onValueChange={setSelecionaAssunto}
-                            mode="dropdown"
-                            dropdownIconColor="#000"
-                        >
-                        <Picker.Item label="Assunto" value={null} />
-                        {["Cursos", "Horários", "Localização", "informações", "Atendimento"].map((item) => (
-                        <Picker.Item key={item} label={item} value={item} />
-                        ))}
-                        {selecionaAssunto && <Text style={{fontSize:10,}}>Você escolheu:{selecionaAssunto}</Text>}
-                        </Picker>
-                        </View>
-
-                        <TextInput
-                          placeholder="Mensagem:"
-                          maxLength={100}
-                            style={styles.textConMensa}  
-                        />
-                        <TouchableOpacity style={styles.textconenviar}>
-                           <Text style={styles.textenviar}>Enviar</Text> 
-                        </TouchableOpacity>
-                    </View>
-                        <View style={{marginRight:10,}}>
-                            <View style={styles.caixaImg}>
-                                <TouchableOpacity style={estilo.logo} onPress={() => Linking.openURL("https://www.instagram.com/gruposocorristafrancisco/")} >
-                                <Image
-                                   source={require('../../assets/icons/insta.png')}
-                                />
-                                <Text style={estilo.txtPequeno}>gruposocorristafrancisco</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.caixaImg}>
-                                <TouchableOpacity style={estilo.logo} onPress={() => Linking.openURL("https://www.youtube.com/@gruposocorristafranciscode6211/videos")} >
-                                <Image
-                                   source={require('../../assets/icons/youtube.png')}
-                                />
-                                <Text style={estilo.txtPequeno}>@gruposocorristafranciscode6211</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={styles.caixaImg}>
-                                <TouchableOpacity style={estilo.logo} onPress={() => Linking.openURL("https://www.facebook.com/gruposocorristafranciscodeassis")} >
-                                <Image
-                                   source={require('../../assets/icons/facebook.png')}
-                                />
-                                <Text style={estilo.txtPequeno}>gruposocorristafranciscodeassis</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-            </View>
+            
+                        
+            
         </View>
         </ScrollView>
     )
@@ -207,36 +145,4 @@ const styles =  StyleSheet.create({
         marginTop:5,
         width: '200%',
     },
-    textConMensa:{
-        borderWidth: 2,
-        borderColor: '#215727',
-        borderRadius: 10,
-        marginLeft: 10,
-        marginTop: 5,
-        width: '200%',
-        
-    },
-    textconenviar:{
-        borderWidth: 2,
-        borderColor: '#215727',
-        borderRadius: 10,
-        marginLeft: 10,
-        marginBottom:20,
-        marginTop: 5,
-        width: '100%',
-    },
-    textenviar:{
-        textAlign: 'center',
-        fontSize:20,
-    },
-    caixaImg:{
-        borderWidth: 2,
-        borderColor: '#215727',
-        marginTop: 5,
-        paddingBottom:"10%",
-        paddingTop:"10%",
-        alignItems:'center',
-        justifyContent:'center',
-        borderRadius: 10,
-    }
 });
