@@ -17,7 +17,7 @@ export default () => {
               justifyContent: 'center',
               alignItems: 'center',
               marginLeft: 80,
-            }} onPress={() => navigation.navigate("Login")}
+            }} 
           >
             <Image
               source={require('../../assets/icons/logo.png')}
@@ -25,7 +25,7 @@ export default () => {
             />
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={{ marginRight: 20}}>
+        <TouchableOpacity style={{ marginRight: 20}} onPress={() => navigation.navigate("Login")}>
           <Icon name="user" size={40} color={'black'} />
         </TouchableOpacity>
       </View>
@@ -36,7 +36,7 @@ export default () => {
             <Icon3 name="tasks" color={'black'} size={40} />
             <Text style={styles.textB}>Atividades</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.BotaoN}>
+          <TouchableOpacity style={styles.BotaoN} onPress={() => navigation.navigate("Horarios")}>
             <Icon name="heartbeat" color={'black'} size={40} />
             <Text style={styles.textB}>Horários</Text>
           </TouchableOpacity>

@@ -6,7 +6,7 @@ import { ProgressBar } from "react-native-paper";
 export default ({ navigation }) => {
     useEffect(() => {
         const timer = setTimeout(() => {
-            
+            navigation.navigate('Home')
         }, 3000)
 
         return () => clearTimeout(timer)
