@@ -42,14 +42,14 @@ export default () => {
           </TouchableOpacity>
         </View>
         <View style={styles.viewCont}>
-          <TouchableOpacity style={styles.BotaoD}>
+          <TouchableOpacity style={styles.BotaoD} onPress={() => navigation.navigate("ReceberPro")}>
             <Icon1 name="bar-graph" color={'black'} size={40} />
 
             <Text style={styles.textB}>Dashboard</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.viewCont}>
-          <TouchableOpacity style={styles.BotaoN}>
+          <TouchableOpacity style={styles.BotaoN} onPress={() => navigation.navigate("QuemSomos")}>
             <Icon2 name="people-roof" color={'black'} size={40} />
             <Text style={styles.textB}>Quem Somos</Text>
           </TouchableOpacity>

@@ -7,7 +7,8 @@ import Login from "../components/Login/Login";
 import home from "../components/Home/home";
 import Atividades from "../components/Atividades/Atividades";
 import NossosHorarios from "../components/NossosHorarios";
-
+import ReceberPro from "../components/Receber produtos/index";
+import QuemSomos from "../components/QuemSomos/QuemSomos";
 const Stack = createStackNavigator();
 
 export default props => {
@@ -24,6 +25,8 @@ export default props => {
             name="Home" component={home}/>
             <Stack.Screen name="Atividades" component={Atividades}/>
             <Stack.Screen name="Horarios" component={NossosHorarios}/>
+            <Stack.Screen name="ReceberPro" component={ReceberPro}/>
+            <Stack.Screen name="QuemSomos" component={QuemSomos}/>
         </Stack.Navigator>
     );
 }

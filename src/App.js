@@ -10,6 +10,7 @@ import QuemSomos from "./components/QuemSomos/QuemSomos";
 import Splash from "./components/Splash/Splash";
 import Receber from "./components/Receber produtos/index"
 import StackNav from "./navegacao/StackNav";
+import ReceberPro from "./components/Receber produtos/index"
 
 
 export default props =>{
