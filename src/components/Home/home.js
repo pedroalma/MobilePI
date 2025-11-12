@@ -17,7 +17,7 @@ export default () => {
               justifyContent: 'center',
               alignItems: 'center',
               marginLeft: 80,
-            }} 
+            }}
           >
             <Image
               source={require('../../assets/icons/logo.png')}
@@ -25,42 +25,55 @@ export default () => {
             />
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={{ marginRight: 20}} onPress={() => navigation.navigate("Login")}>
+        <TouchableOpacity
+          style={{ marginRight: 20 }}
+          onPress={() => navigation.navigate('Login')}
+        >
           <Icon name="user" size={40} color={'black'} />
         </TouchableOpacity>
       </View>
       <Text style={styles.textH}>Home</Text>
       <View>
         <View style={styles.viewCont}>
-          <TouchableOpacity style={styles.BotaoN}  onPress={() => navigation.navigate("Atividades")}>
+          <TouchableOpacity
+            style={styles.BotaoN}
+            onPress={() => navigation.navigate('Atividades')}
+          >
             <Icon3 name="tasks" color={'black'} size={40} />
             <Text style={styles.textB}>Atividades</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.BotaoN} onPress={() => navigation.navigate("Horarios")}>
+          <TouchableOpacity
+            style={styles.BotaoN}
+            onPress={() => navigation.navigate('Horarios')}
+          >
             <Icon name="heartbeat" color={'black'} size={40} />
             <Text style={styles.textB}>Horários</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.viewCont}>
-          <TouchableOpacity style={styles.BotaoD} onPress={() => navigation.navigate("ReceberPro")}>
+          <TouchableOpacity
+            style={styles.BotaoN}
+            onPress={() => navigation.navigate('ReceberPro')}
+          >
             <Icon1 name="bar-graph" color={'black'} size={40} />
 
             <Text style={styles.textB}>Dashboard</Text>
           </TouchableOpacity>
-        </View>
-        <View style={styles.viewCont}>
-          <TouchableOpacity style={styles.BotaoN} onPress={() => navigation.navigate("QuemSomos")}>
+
+          <TouchableOpacity
+            style={styles.BotaoN}
+            onPress={() => navigation.navigate('QuemSomos')}
+          >
             <Icon2 name="people-roof" color={'black'} size={40} />
             <Text style={styles.textB}>Quem Somos</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.BotaoN}>
-            <Icon name="phone" color={'black'} size={40} />
-            <Text style={styles.textB}>Fale conosco</Text>
           </TouchableOpacity>
         </View>
         <Text style={styles.textH2}>Nossa localização</Text>
         <TouchableOpacity>
-          <Image source={require('../../assets/icons/Localização.png')} style={styles.img2} />
+          <Image
+            source={require('../../assets/icons/Localização.png')}
+            style={styles.img2}
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -76,10 +89,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   img2: {
-    width: 420,
+    width: 360,
     height: 200,
     marginTop: 10,
-    alignSelf:"center"
+    alignSelf: 'center',
   },
   textH: {
     fontSize: 30,
@@ -90,7 +103,7 @@ const styles = StyleSheet.create({
   textH2: {
     fontSize: 30,
     textAlign: 'center',
-    marginTop: 20,
+    marginTop: 30,
     fontFamily: 'Roboto-Bold',
   },
   textB: {
