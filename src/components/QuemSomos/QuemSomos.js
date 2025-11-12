@@ -15,16 +15,15 @@ export default props => {
         <View >
             <View style={styles.viewContImg}>
                 <View>
-                    <TouchableOpacity style={{justifyContent: 'center',alignItems: 'center',marginLeft: 80,}} onPress={() => navigation.navigate("Login")}>
+                    <TouchableOpacity 
+                     onPress={() => navigation.navigate("Home")}
+                     >
                         <Image
                           source={require('../../assets/icons/logo.png')}
                           style={styles.img}
                         />
                       </TouchableOpacity>
                     </View>
-                    <TouchableOpacity style={{ marginRight: 20}}>
-                      <Icon name="navicon" size={30} color={'black'} />
-                    </TouchableOpacity>
             </View>
             <View style={{marginTop:20, alignItems:'center'}}>
                 <Text>Histórico e Fundação</Text>
@@ -95,12 +94,8 @@ const styles =  StyleSheet.create({
     marginTop: 10,
     },
     viewContImg: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    justifyContent: 'space-between',
-    marginLeft: 110,
-    alignItems: 'center',
+    justifyContent:'center', 
+    alignItems:'center',
     },
     viewCont: {
     flexDirection: 'row',

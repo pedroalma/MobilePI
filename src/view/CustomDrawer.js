@@ -6,15 +6,11 @@ export default props =>{
         <View style={styles.container}>
             <DrawerContentScrollView {...props}>
             <View>
-            <Text style={styles.title}>Little Friends</Text>
-            <Text style={styles.telefone}>sac@little-frinds.com</Text>
-            <Text style={styles.telefone}>+55-11-3737-3737</Text>
+            <Text style={styles.title}>Grupo Socorrista Francisco de Assis</Text>
+            <Text style={styles.telefone}>gsfa@gfranciscodeassis.org.br</Text>
             </View>
             <DrawerItemList {...props}/>
             </DrawerContentScrollView>
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Logout</Text>
-            </TouchableOpacity>
         </View>
     );  
 }
@@ -25,12 +21,12 @@ const styles = StyleSheet.create({
         alignItems:"center",
     },
     title:{ 
-        fontSize:24,
+        fontSize:15,
         fontWeight:"bold",
         color:"#333"
     },
     telefone:{
-        fontSize:18,
+        fontSize:15,
         color:"#666",
         marginBottom:20
     },

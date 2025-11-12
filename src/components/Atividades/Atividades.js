@@ -10,7 +10,10 @@ import {
   Linking,
 } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+
 export default function Atividades() {
+  const navigation = useNavigation();
   // 🔹 Lista de atividades (você pode expandir ou puxar de uma API futuramente)
   const atividades = [
     {
@@ -92,7 +95,9 @@ export default function Atividades() {
     <View style={styles.Container}>
       {/* 🔹 Logo e campo de pesquisa */}
       <View style={{ alignItems: 'center' }}>
-        <TouchableOpacity>
+        <TouchableOpacity             
+        onPress={() => navigation.navigate('Home')}
+        >
           <Image
             source={require('../../assets/icons/logo.png')}
             style={styles.logo}

@@ -44,7 +44,7 @@ export default () => {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.BotaoN}
-            onPress={() => navigation.navigate('Horarios')}
+            onPress={() => navigation.navigate('NossosHorarios')}
           >
             <Icon name="heartbeat" color={'black'} size={40} />
             <Text style={styles.textB}>Horários</Text>

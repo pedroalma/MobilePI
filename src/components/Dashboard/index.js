@@ -4,7 +4,7 @@ import { Text, View, StyleSheet, Image } from "react-native";
 export default props => {
     return(
         <View style={styles.container}>
-            <View style={styles.containertab}>
+            <View>
                 <Text>aKSÇKalsk</Text>
                 <Text>plapsllpaslpals</Text>
             </View>

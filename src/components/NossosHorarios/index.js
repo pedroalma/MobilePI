@@ -9,21 +9,18 @@ export default props => {
   return (
     <View style={styles.container}>
       <View style={styles.viewContImg}>
-        <View>
-          <TouchableOpacity
-            style={{}}
-            onPress={() => navigation.navigate('Login')}
+        <View >
+          <TouchableOpacity 
+          
+            onPress={() => navigation.navigate('Home')}
           >
             <Image
               source={require('../../assets/icons/logo.png')}
               style={styles.logo}
+              
             />
           </TouchableOpacity>
         </View>
- 
-        <TouchableOpacity style={{ marginRight: 20 }}>
-          <Icon name="navicon" size={30} color={'black'} />
-        </TouchableOpacity>
       </View>
  
       <View style={{ alignItems: 'center', margin: 40 }}>
@@ -94,10 +91,8 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   viewContImg: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    gap: 147
+    justifyContent:'center', 
+    alignItems:'center',
   },
   logo: {
     width: 70,
