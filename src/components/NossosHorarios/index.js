@@ -15,7 +15,7 @@ export default props => {
             onPress={() => navigation.navigate('Home')}
           >
             <Image
-              source={require('../../assets/icons/logo.png')}
+              source={require('../../assets/icons/logo1.png')}
               style={styles.logo}
               
             />
@@ -95,9 +95,9 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   logo: {
-    width: 70,
+    width: 150,
     height: 50,
-    marginBottom: 10,
+    marginTop: 10,
   },
   titulo: {
     fontWeight: 'bold',

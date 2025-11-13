@@ -16,17 +16,17 @@ export default () => {
             style={{
               justifyContent: 'center',
               alignItems: 'center',
-              marginLeft: 80,
+              
             }}
           >
             <Image
-              source={require('../../assets/icons/logo.png')}
+              source={require('../../assets/icons/logo1.png')}
               style={styles.img}
             />
           </TouchableOpacity>
         </View>
         <TouchableOpacity
-          style={{ marginRight: 20 }}
+        
           onPress={() => navigation.navigate('Login')}
         >
           <Icon name="user" size={40} color={'black'} />
@@ -53,7 +53,7 @@ export default () => {
         <View style={styles.viewCont}>
           <TouchableOpacity
             style={styles.BotaoN}
-            onPress={() => navigation.navigate('ReceberPro')}
+            onPress={() => navigation.navigate('Dashboard')}
           >
             <Icon1 name="bar-graph" color={'black'} size={40} />
 
@@ -84,15 +84,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   img: {
-    width: 70,
-    height: 50,
+    width: 150,
+    height: 60,
     marginTop: 10,
+    marginLeft:"37%",
+    resizeMode: 'contain',
   },
   img2: {
-    width: 360,
+    width: '100%',
     height: 200,
     marginTop: 10,
-    alignSelf: 'center',
+    resizeMode: 'cover',
   },
   textH: {
     fontSize: 30,
@@ -114,10 +116,8 @@ const styles = StyleSheet.create({
   viewContImg: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
     justifyContent: 'space-between',
-    marginLeft: 110,
-    alignItems: 'center',
+    paddingHorizontal: 10,
   },
   viewCont: {
     flexDirection: 'row',

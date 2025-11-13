@@ -1,11 +1,28 @@
 import React from 'react';
-import {StyleSheet,Text,View,TouchableOpacity,processColor,} from 'react-native';
+import {StyleSheet,Text,View,TouchableOpacity,processColor,Image} from 'react-native';
 import { BarChart, PieChart } from 'react-native-charts-wrapper';
-
+import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 export default props => {
+  const navigation = useNavigation();
     return (
       <View style={styles.screen}>
-               
+        <View style={styles.viewContImg}>
+                <View>
+                  <TouchableOpacity
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      
+                    }}
+                  >
+                    <Image
+                      source={require('../../assets/icons/logo1.png')}
+                      style={styles.img}
+                    />
+                  </TouchableOpacity>
+                </View>
+        </View>
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Doações do mês</Text>
           <BarChart
@@ -122,7 +139,7 @@ export default props => {
         </View>
 
     
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Cestas')}>
           <Text style={styles.buttonText}>Fazer a cesta</Text>
         </TouchableOpacity>
       </View>
@@ -135,6 +152,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#f9fafb',
     alignItems: 'center',
     paddingVertical: 10,
+  },
+  viewContImg: {
+    width: '90%',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  img: {
+    width: 220,
+    height: 80,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    marginTop: 10,
   },
   header: {
     width: '90%',

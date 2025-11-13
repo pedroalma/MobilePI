@@ -117,7 +117,7 @@ function Cadastro() {
                     onChangeText={(t) => handleChange(t, setDataReceb)}
                 />
 
-                <TouchableOpacity style={styles.btnconfirm} onPress={handleConfirm}>
+                <TouchableOpacity style={styles.btnconfirm} onPress={handleConfirm} >
                     <Text style={styles.txtbtnconfirm}>Confirmar</Text>
                 </TouchableOpacity>
             </View>

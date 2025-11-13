@@ -12,7 +12,9 @@ import home from "../components/Home/home";
 import Atividades from "../components/Atividades/Atividades";
 import NossosHorarios from "../components/NossosHorarios/index";
 import QuemSomos from "../components/QuemSomos/QuemSomos";
-
+import Cadastro from "../components/CadastroProduto/index";
+import Dashboard from "../components/Dashboard/index";
+import Cestas from "../components/Receber cestas/index";
 
 export default props => {
     return(
@@ -27,6 +29,9 @@ export default props => {
             <Drawer.Screen name="Atividades" component={Atividades}/>
             <Drawer.Screen name="NossosHorarios" component={NossosHorarios}/>
             <Drawer.Screen name="QuemSomos" component={QuemSomos}/>
+            <Drawer.Screen name="Cadastro" component={Cadastro}/>
+            <Drawer.Screen name="Dashboard" component={Dashboard}/>
+            <Drawer.Screen name="Cestas" component={Cestas}/>
         </Drawer.Navigator>
     )
 }

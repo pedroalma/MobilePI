@@ -16,7 +16,7 @@ export default ({ navigation }) => {
 
   const validarLogin = () => {
     if (email.trim() === "senac" && senha.trim() === "senac") {
-      navigation.navigate("Home");
+      navigation.navigate("Cadastro");
     } else {
       Alert.alert("E-mail ou senha inválidos!");
       setEmail("");

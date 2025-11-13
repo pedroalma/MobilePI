@@ -19,7 +19,7 @@ export default props => {
                      onPress={() => navigation.navigate("Home")}
                      >
                         <Image
-                          source={require('../../assets/icons/logo.png')}
+                          source={require('../../assets/icons/logo1.png')}
                           style={styles.img}
                         />
                       </TouchableOpacity>
@@ -89,7 +89,7 @@ const styles =  StyleSheet.create({
         flex: 1,
     },
     img: {
-    width: 70,
+    width: 150,
     height: 50,
     marginTop: 10,
     },
