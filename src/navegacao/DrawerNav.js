@@ -17,22 +17,46 @@ import Dashboard from "../components/Dashboard/index";
 import Cestas from "../components/Receber cestas/index";
 
 export default props => {
+    const telas = [
+  { name: "Splash", component: Splash, hide: true, header: false },
+  { name: "Home", component: Home, hide: true, header: false },
+  { name: "Login", component: Login, hide: true, header: false },
+  { name: "Cadastro", component: Cadastro, hide: true },
+  { name: "Cestas", component: Cestas, hide: true },
+
+  { name: "Atividades", component: Atividades },
+  { name: "NossosHorarios", component: NossosHorarios },
+  { name: "QuemSomos", component: QuemSomos },
+  { name: "Dashboard", component: Dashboard },
+];
+
     return(
-        <Drawer.Navigator drawerContent={props => <CustomDrawer {...props}/>} 
-        screenOptions={{headerShown:true,headerStyle:{ 
-            elevation:0,shadowOpacity:0
-            },
-            }}>
-            <Drawer.Screen name="Splash" component={Splash} options={{ headerShown: false }}/>
-            <Drawer.Screen name="Home" component={Home} options={{ headerShown: false }}/>
-            <Drawer.Screen name="Login" component={Login} options={{ headerShown: false }}/>
-            <Drawer.Screen name="Atividades" component={Atividades}/>
-            <Drawer.Screen name="NossosHorarios" component={NossosHorarios}/>
-            <Drawer.Screen name="QuemSomos" component={QuemSomos}/>
-            <Drawer.Screen name="Cadastro" component={Cadastro}/>
-            <Drawer.Screen name="Dashboard" component={Dashboard}/>
-            <Drawer.Screen name="Cestas" component={Cestas}/>
-        </Drawer.Navigator>
+        <Drawer.Navigator
+  drawerContent={props => <CustomDrawer {...props} />}
+  screenOptions={{
+    headerShown: true,
+    drawerActiveTintColor: '#FFFFFF',
+    drawerActiveBackgroundColor: '#215727',
+    headerStyle: {
+      elevation: 0,
+      shadowOpacity: 0,
+    },
+  }}
+>
+  {telas.map((tela) => (
+    <Drawer.Screen
+      key={tela.name}
+      name={tela.name}
+      component={tela.component}
+      options={{
+        headerShown: tela.header === false ? false : true,
+        drawerItemStyle: tela.hide ? { display: "none" } : undefined,
+        
+      }}
+    />
+  ))}
+</Drawer.Navigator>
+
     )
 }
 
