@@ -19,7 +19,7 @@ import Cestas from "../components/Receber cestas/index";
 export default props => {
     const telas = [
   { name: "Splash", component: Splash, hide: true, header: false },
-  { name: "Home", component: Home, hide: true, header: false },
+  { name: "Home", component: Home,  header: false },
   { name: "Login", component: Login, hide: true, header: false },
   { name: "Cadastro", component: Cadastro, hide: true },
   { name: "Cestas", component: Cestas, hide: true },
