@@ -119,6 +119,6 @@ npx react-native-asset
 
 * **React Native Vector Icons**: [https://oblador.github.io/react-native-vector-icons/](https://oblador.github.io/react-native-vector-icons/)
 * **React Native Paper (UI Components)**: [https://callstack.github.io/react-native-paper/](https://callstack.github.io/react-native-paper/)
-* **Instalação de Fontes do Google no React Native**: [https://blog.callstack.io/adding-custom-fonts-to-react-native](https://blog.callstack.io/adding-custom-fonts-to-react-native)
+* **React Native Gesture Handler**: [https://docs.swmansion.com/react-native-gesture-handler/](https://docs.swmansion.com/react-native-gesture-handler/)
 * **React Native Reanimated**: [https://docs.swmansion.com/react-native-reanimated/](https://docs.swmansion.com/react-native-reanimated/)
 ---
