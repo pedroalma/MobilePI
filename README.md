@@ -1,53 +1,125 @@
-📱 React Native Project
+# 📱 React Native Project
 
-Projeto desenvolvido em [React Native](https://reactnative.dev/)
-, inicializado com [@react-native-community/cli](https://github.com/react-native-community/cli)
-.
+Projeto desenvolvido em [React Native](https://reactnative.dev/), inicializado com [@react-native-community/cli](https://github.com/react-native-community/cli).
 
-🚀 Inicialização
+---
+
+## 🚀 Inicialização
+
 ```sh
-    npm install
+npm install
 ```
-```sh    
-    npx react-native run-android
+
+```sh
+npx react-native run-android
 ```
+
 Certifique-se de ter o ambiente configurado conforme o guia oficial:
-[Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment)
+👉 [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment)
 
-🧭 Navegação
+---
 
-Instale as dependências do React Navigation:
+## 🧭 Navegação
+
+As dependências do **React Navigation** foram instaladas conforme listadas no `package-lock.json`:
+
+### 📦 Dependências instaladas relacionadas à navegação
+
+foi estalado as dependências do React Navigation:
+
 ```sh
-    npm install @react-navigation/native
-```
-```sh
-    npm install react-native-screens react-native-safe-area-context
-```
-```sh
-    npm install @react-navigation/native-stack
-```
-```sh
-    npm install @react-navigation/elements
+npm install @react-navigation/native
 ```
 
-🖋️ Fontes , icons e Recursos
 ```sh
-    npx react-native-asset
+npm install react-native-screens react-native-safe-area-context
 ```
-icons
-[Lock](https://fonts.google.com/icons?selected=Material+Symbols+Outlined:lock:FILL@0;wght@400;GRAD@0;opsz@24&icon.query=lock&icon.size=24&icon.color=%23e3e3e3&icon.platform=web),
-[Calendar Clock](https://fonts.google.com/icons?icon.query=Calendar+Clock&icon.size=24&icon.color=%23e3e3e3&query=c&selected=Material+Symbols+Outlined:calendar_clock:FILL@0;wght@400;GRAD@0;opsz@24),
-[Edit](https://fonts.google.com/icons?selected=Material+Symbols+Outlined:edit:FILL@0;wght@400;GRAD@0;opsz@24&icon.query=Edit&icon.size=24&icon.color=%23e3e3e3),
-[Person Book](https://fonts.google.com/icons?icon.query=Person+Book&icon.size=24&icon.color=%23e3e3e3&selected=Material+Symbols+Outlined:person_book:FILL@0;wght@400;GRAD@0;opsz@24),
-[Person](https://fonts.google.com/icons?selected=Material+Symbols+Outlined:person:FILL@0;wght@400;GRAD@0;opsz@24&icon.query=person&icon.size=24&icon.color=%23e3e3e3),
-[Arrow Back](https://fonts.google.com/icons?selected=Material+Symbols+Outlined:arrow_back:FILL@0;wght@400;GRAD@0;opsz@24&icon.query=arrow&icon.size=24&icon.color=%23e3e3e3),
-[Arrow Back iOS](https://fonts.google.com/icons?selected=Material+Symbols+Outlined:arrow_back_ios:FILL@0;wght@400;GRAD@0;opsz@24&icon.query=arrow&icon.size=24&icon.color=%23e3e3e3)
 
-Escolha suas fontes em: [fonts.google.com](https://fonts.google.com/)
+```sh
+npm install @react-navigation/native-stack
+```
 
-🧠 Links Úteis
+```sh
+npm install @react-navigation/elements
+```
 
-[Documentação React Native](https://reactnative.dev/docs/getting-started)
+```json
+"dependencies": {
+  "@react-navigation/bottom-tabs": "^7.8.2",
+  "@react-navigation/drawer": "^7.7.2",
+  "@react-navigation/elements": "^2.7.0",
+  "@react-navigation/native": "^7.1.19",
+  "@react-navigation/native-stack": "^7.5.1",
+  "@react-navigation/stack": "^7.6.3",
+  "react-native-drawer-layout": "^4.2.0",
+  "react-native-gesture-handler": "^2.29.1",
+  "react-native-reanimated": "^4.1.5",
+  "react-native-screens": "^4.18.0",
+  "react-native-safe-area-context": "^5.6.2"
+}
+```
 
-[Documentação React Navigation](https://reactnavigation.org/docs/getting-started/)
-biblioteca font google react native
+Esses pacotes garantem o funcionamento de navegação em **Stack**, **Bottom Tabs**, **Drawer**, animações e áreas seguras do dispositivo.
+
+---
+
+## 🖋️ Fontes, Ícones e Recursos
+
+```sh
+npx react-native-asset
+```
+
+```sh
+npm install react-native-vector-icons
+```
+
+```sh
+npm install react-native-paper
+```
+
+```sh
+npm install react-native-safe-area-context
+```
+
+### 🔠 Ícones utilizados
+
+* [user](https://oblador.github.io/react-native-vector-icons/)
+* [people-roof](https://oblador.github.io/react-native-vector-icons/)
+* [heartbeat](https://oblador.github.io/react-native-vector-icons/)
+* [bar-graph](https://oblador.github.io/react-native-vector-icons/Entypo)
+* [tasks](https://oblador.github.io/react-native-vector-icons/)
+* [hospital-box](https://callstack.github.io/react-native-paper/docs/guides/icons/)
+* [text-box](https://callstack.github.io/react-native-paper/docs/guides/icons/)
+
+### 🔤 Fontes
+
+Escolha fontes personalizadas:
+👉 [https://fonts.google.com/](https://fonts.google.com/)
+
+Para utilizar fontes do Google no React Native:
+
+* Baixe a fonte desejada
+* Coloque na pasta `assets/fonts`
+* Execute:
+
+```sh
+npx react-native-asset
+```
+
+---
+
+## 🧠 Links Úteis
+
+### 📚 Documentações oficiais
+
+* [Documentação React Native](https://reactnative.dev/docs/getting-started)
+* [Documentação React Navigation](https://reactnavigation.org/docs/getting-started/)
+
+### 🧰 Ferramentas e bibliotecas úteis
+
+* **React Native Vector Icons**: [https://oblador.github.io/react-native-vector-icons/](https://oblador.github.io/react-native-vector-icons/)
+* **React Native Paper (UI Components)**: [https://callstack.github.io/react-native-paper/](https://callstack.github.io/react-native-paper/)
+* **Instalação de Fontes do Google no React Native**: [https://blog.callstack.io/adding-custom-fonts-to-react-native](https://blog.callstack.io/adding-custom-fonts-to-react-native)
+* **React Native Gesture Handler**: [https://docs.swmansion.com/react-native-gesture-handler/](https://docs.swmansion.com/react-native-gesture-handler/)
+* **React Native Reanimated**: [https://docs.swmansion.com/react-native-reanimated/](https://docs.swmansion.com/react-native-reanimated/)
+---
