@@ -1,13 +1,13 @@
 import React from 'react';
-import {StyleSheet,Text,View,TouchableOpacity,processColor,Image} from 'react-native';
+import {StyleSheet,Text,View,TouchableOpacity,processColor,Image,ScrollView} from 'react-native';
 import { BarChart, PieChart } from 'react-native-charts-wrapper';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 export default props => {
   const navigation = useNavigation();
     return (
+      <ScrollView>
       <View style={styles.screen}>
-        <View style={styles.viewContImg}>
+               <View style={styles.viewContImg}>
                 <View>
                   <TouchableOpacity
                     style={{
@@ -15,6 +15,7 @@ export default props => {
                       alignItems: 'center',
                       
                     }}
+                    onPress={() => navigation.navigate('Home')}
                   >
                     <Image
                       source={require('../../assets/icons/logo1.png')}
@@ -23,6 +24,7 @@ export default props => {
                   </TouchableOpacity>
                 </View>
         </View>
+
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Doações do mês</Text>
           <BarChart
@@ -33,9 +35,9 @@ export default props => {
                   label: 'Doações',
                   values: [
                     { y: 5 },
+                    { y: 1 },
                     { y: 6 },
                     { y: 4 },
-                    { y: 7 },
                     { y: 3 },
                     { y: 2 },
                   ],
@@ -53,12 +55,12 @@ export default props => {
               textSize: 10,
               textColor: processColor('#fff'),
             }}
-            yAxis={{ left: { enabled: false }, right: { enabled: false } }}
+            yAxis={{ left: { enabled: false }, right: { enabled: true } }}
             chartDescription={{ text: '' }}
             legend={{ enabled: false }}
           />
         </View>
-
+ 
         <View style={styles.row}>
           <View style={styles.smallCard}>
             <PieChart
@@ -91,8 +93,8 @@ export default props => {
               <View style={[styles.dot, { backgroundColor: '#60a5fa' }]} />
             </View>
           </View>
-
-          
+ 
+         
           <View style={styles.smallCard}>
             <PieChart
               style={styles.pieChart}
@@ -125,8 +127,8 @@ export default props => {
             </View>
           </View>
         </View>
-
-      
+ 
+     
         <View style={styles.largeCard}>
           <View style={styles.halfCardLeft}>
             <Text style={styles.label}>cestas montadas</Text>
@@ -137,15 +139,16 @@ export default props => {
             <Text style={styles.bigNumber}>00</Text>
           </View>
         </View>
-
-    
+ 
+   
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Cestas')}>
           <Text style={styles.buttonText}>Fazer a cesta</Text>
         </TouchableOpacity>
       </View>
+      </ScrollView>
     );
   }
-
+ 
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
@@ -158,7 +161,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 10,
   },
-  img: {
+ img: {
     width: 220,
     height: 80,
     resizeMode: 'contain',
@@ -199,7 +202,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   barChart: {
-    height: 200,
+    height: 250,
   },
   row: {
     width: '90%',
@@ -214,10 +217,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 10,
     elevation: 4,
+    height:250,
+    justifyContent: 'center'
   },
   pieChart: {
-    width: 120,
-    height: 120,
+    width: 150,
+    height: 150,
   },
   smallTitle: {
     color: '#fff',
@@ -229,9 +234,9 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
+    width: 20,
+    height: 20,
+    borderRadius: 10,
     marginHorizontal: 4,
   },
   largeCard: {
