@@ -32,7 +32,7 @@ export default () => {
           <Icon name="user" size={40} color={'black'} />
         </TouchableOpacity>
       </View>
-      <Text style={styles.textH}>Home</Text>
+      <Text style={styles.textH}></Text>
       <View>
         <View style={styles.viewCont}>
           <TouchableOpacity
@@ -68,13 +68,13 @@ export default () => {
             <Text style={styles.textB}>Quem Somos</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.textH2}>Nossa localização</Text>
-        <TouchableOpacity>
-          <Image
-            source={require('../../assets/icons/Localização.png')}
-            style={styles.img2}
-          />
-        </TouchableOpacity>
+        
+        <TouchableOpacity
+            style={styles.BotaoN1}
+            onPress={() => navigation.navigate('QuemSomos')}
+          >
+            <Text style={styles.textB}>Nossa localização</Text>
+          </TouchableOpacity>
       </View>
     </View>
   );
@@ -83,11 +83,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  img: {
-    width: 150,
-    height: 60,
+  img: { 
+    width: 150 * 1.4,
+    height: 60 * 1.4,
     marginTop: 10,
-    marginLeft:"37%",
+    marginLeft: "25%",
     resizeMode: 'contain',
   },
   img2: {
@@ -97,9 +97,8 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   textH: {
-    fontSize: 30,
+    fontSize: 20,
     textAlign: 'center',
-    margin: 20,
     fontFamily: 'Roboto-Bold',
   },
   textH2: {
@@ -109,7 +108,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-Bold',
   },
   textB: {
-    fontSize: 15,
+    fontSize: 25,
+    marginTop: 10,
     textAlign: 'center',
     fontFamily: 'Roboto-Bold',
   },
@@ -135,6 +135,21 @@ const styles = StyleSheet.create({
     margin: 8,
     display: 'flex',
     flexDirection: 'column',
+  },
+  BotaoN1: {
+    height: 160,
+    width: '81%',
+    borderWidth: 2,
+    borderRadius: 20,
+    borderColor: 'green',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 8,
+    marginLeft: 8,
+    marginTop: 8,
+    display: 'flex',
+    flexDirection: 'column',
+  
   },
   BotaoD: {
     height: 100,
