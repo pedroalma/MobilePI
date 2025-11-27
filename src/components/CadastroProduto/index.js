@@ -1,22 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextInput, View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useNavigation } from "@react-navigation/native"; 
+import { useNavigation } from "@react-navigation/native";
 import Relatorios from "../Relatorios";
 import { Icon } from "react-native-paper";
-
+ 
 const Tab = createBottomTabNavigator();
-
+ 
+const getTodayDate = () => {
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    return `${dd}/${mm}/${yyyy}`;
+};
+ 
 function Cadastro() {
-    const [selecionaComida, setSelecionaComida] = useState(null); 
+    const [selecionaComida, setSelecionaComida] = useState(null);
     const [peso, setPeso] = useState('');
     const [data, setData] = useState('');
     const [descricao, setDescricao] = useState('');
     const [dataReceb, setDataReceb] = useState('');
-    
-    const navigation = useNavigation(); 
-
+   
+    const navigation = useNavigation();
+ 
+    useEffect(() => {
+        setDataReceb(getTodayDate());
+    }, []);
+ 
     const handleChange = (text, setter) => {
         let cleaned = text.replace(/\D/g, '');
         if (cleaned.length > 2 && cleaned.length <= 4) {
@@ -26,25 +38,25 @@ function Cadastro() {
         }
         setter(cleaned.slice(0, 10));
     };
-
+ 
     const handleConfirm = () => {
         if (!selecionaComida || !peso || !data || !descricao || !dataReceb) {
             alert("⚠️ Preencha todos os campos!");
             return;
         }
-
+ 
         const novoItem = [selecionaComida, peso, data, descricao, dataReceb];
-
+ 
         navigation.navigate("Relatórios", { novoItem });
-
-        
+ 
+       
         setSelecionaComida(null);
         setPeso('');
         setData('');
         setDescricao('');
         setDataReceb('');
     };
-
+ 
     return (
         <View style={styles.container}>
             <View style={styles.centralizaitem}>
@@ -64,9 +76,9 @@ function Cadastro() {
                         <Picker.Item label="Café" value="Café" />
                     </Picker>
                 </View>
-
+ 
                 <View style={{ alignItems: "center", gap: 45, justifyContent: "center", flexDirection: "row" }}>
-                
+               
                     <View style={styles.inputPicker}>
                     <Picker
                         selectedValue={peso}
@@ -87,9 +99,9 @@ function Cadastro() {
                         <Picker.Item label="1L" value="1L" />
                     </Picker>
                 </View>
-
-
-
+ 
+ 
+ 
                     <TextInput
                         placeholder="Validade"
                         style={styles.input}
@@ -99,15 +111,15 @@ function Cadastro() {
                         onChangeText={(t) => handleChange(t, setData)}
                     />
                 </View>
-
+ 
                 <TextInput
                     placeholder="Descrição"
                     style={styles.descricao}
                     multiline={true}
-                    value={descricao} 
-                    onChangeText={setDescricao} 
+                    value={descricao}
+                    onChangeText={setDescricao}
                 />
-
+ 
                 <TextInput
                     placeholder="Data de Recebimento"
                     style={styles.dtreceb}
@@ -115,16 +127,17 @@ function Cadastro() {
                     keyboardType="numeric"
                     value={dataReceb}
                     onChangeText={(t) => handleChange(t, setDataReceb)}
+                    editable={false}
                 />
-
-                <TouchableOpacity style={styles.btnconfirm} onPress={handleConfirm} >
+ 
+                <TouchableOpacity style={styles.btnconfirm} onPress={handleConfirm}>
                     <Text style={styles.txtbtnconfirm}>Confirmar</Text>
                 </TouchableOpacity>
             </View>
         </View>
     );
 }
-
+ 
 export default function AppTabs() {
     return (
         <Tab.Navigator screenOptions={{
@@ -150,7 +163,7 @@ export default function AppTabs() {
         </Tab.Navigator>
     );
 }
-
+ 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -163,7 +176,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         padding: 5
     },
-    
+   
         inputPicker:{
             borderWidth: 2,
             borderColor: "#215727",
@@ -175,7 +188,7 @@ const styles = StyleSheet.create({
             justifyContent: "center",
             alignSelf: "center",
             overflow: "hidden",
-        
+       
     },
     descricao: {
         borderWidth: 2,
