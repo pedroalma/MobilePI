@@ -1,10 +1,21 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback,useEffect } from "react";
 import { StyleSheet, View, TextInput, TouchableOpacity, Text, ScrollView, Alert } from "react-native";
 import { Table, Row } from "react-native-table-component";
 import { useFocusEffect, useRoute, useNavigation } from "@react-navigation/native";
+import Orientation from 'react-native-orientation-locker';
 import RNHTMLtoPDF from "react-native-html-to-pdf";
+import FileViewer from "react-native-file-viewer";
+import RNFS from "react-native-fs";
 
 export default function Relatorios() {
+  useFocusEffect(useCallback(() => {
+    Orientation.lockToLandscape();
+
+    return () => {
+      // Opcional: liberar o bloqueio quando sair da tela
+      Orientation.lockToPortrait();
+    };
+  }, []));
   const route = useRoute();
   const navigation = useNavigation();
 
@@ -12,195 +23,87 @@ export default function Relatorios() {
   const [editingIndex, setEditingIndex] = useState(null);
   const [editData, setEditData] = useState([]);
 
-  // --- TURNOS AUTOMÁTICOS ---
-  const getTurno = () => {
-    const hora = new Date().getHours();
-    if (hora < 12) return "Manhã";
-    if (hora < 18) return "Tarde";
-    return "Noite";
-  };
+  // --- LARGURAS FIXAS (Crucial para o alinhamento) ---
+  const widthArr = [90, 60, 100, 160, 100, 80, 140]; 
 
+  // ... (Mantenha suas funções: getTurno, useFocusEffect, startEditing, saveEditing, etc.) ...
+  // Vou omitir as funções lógicas para focar no layout, pois elas não mudaram.
+  // Certifique-se de manter o código de lógica (getTurno, deleteRow, gerarPDF, etc) aqui.
+
+  // --- Exemplo rápido das funções necessárias para o render não quebrar ---
+  const getTurno = () => { const h = new Date().getHours(); return h < 12 ? "Manhã" : h < 18 ? "Tarde" : "Noite"; };
   const turnoAtual = getTurno();
-
-  // --- PEGANDO NOVOS ITENS DO CADASTRO ---
-  useFocusEffect(
-    useCallback(() => {
+  
+  useFocusEffect(useCallback(() => {
       if (route.params?.novoItem) {
-        const itemComTurno = [...route.params.novoItem, turnoAtual];
-        setTableData((prev) => [...prev, itemComTurno]);
-
+        setTableData((prev) => [...prev, [...route.params.novoItem, turnoAtual]]);
         navigation.setParams({ novoItem: null });
       }
-    }, [route.params, navigation])
-  );
+  }, [route.params]));
 
-  // --- INICIAR EDIÇÃO ---
-  const startEditing = (index) => {
-    setEditingIndex(index);
-    setEditData([...tableData[index]]);
-  };
-
-  // --- SALVAR EDIÇÃO ---
+  const startEditing = (i) => { setEditingIndex(i); setEditData([...tableData[i]]); };
+  const cancelEditing = () => { setEditingIndex(null); setEditData([]); };
   const saveEditing = () => {
-    const newData = [...tableData];
-    newData[editingIndex] = editData;
-    setTableData(newData);
-    setEditingIndex(null);
-    setEditData([]);
+    const n = [...tableData]; n[editingIndex] = editData;
+    setTableData(n); setEditingIndex(null); setEditData([]);
   };
+  const deleteRow = (i) => setTableData((p) => p.filter((_, x) => x !== i));
+  const gerarPDF = async () => { /* ...seu código de PDF... */ };
 
-  // --- CANCELAR EDIÇÃO ---
-  const cancelEditing = () => {
-    setEditingIndex(null);
-    setEditData([]);
-  };
-
-  // --- EXCLUIR ITEM ---
-  const deleteRow = (index) => {
-    setTableData((prev) => prev.filter((_, i) => i !== index));
-  };
-
-  // --- TOTAL POR PRODUTO ---
-  const totalPorProduto = {};
-  tableData.forEach((row) => {
-    const produto = row[0];
-    totalPorProduto[produto] = (totalPorProduto[produto] || 0) + 1;
-  });
-
-  // --- TOTAL POR TURNO ---
-  const totalPorTurno = { Manhã: 0, Tarde: 0, Noite: 0 };
-  tableData.forEach((row) => {
-    const turno = row[5];
-    totalPorTurno[turno]++;
-  });
-
-  // --- GERAR PDF ---
-const gerarPDF = async () => {
-  try {
-    const dataSaida = new Date().toLocaleDateString();
-    const horaSaida = new Date().toLocaleTimeString();
-
-    let tabelaHTML = "";
-    tableData.forEach((r) => {
-      tabelaHTML += `
-        <tr>
-          <td>${r[0]}</td>
-          <td>${r[1]}</td>
-          <td>${r[2]}</td>
-          <td>${r[3]}</td>
-          <td>${r[4]}</td>
-          <td>${r[5]}</td>
-        </tr>
-      `;
-    });
-
-    let html = `
-      <h1 style="text-align:center;">Relatório de Saída</h1>
-      <p>Data de saída: <b>${dataSaida}</b> às <b>${horaSaida}</b></p>
-      <hr />
-
-      <h2>Totais por Produto</h2>
-    `;
-
-    Object.keys(totalPorProduto).forEach((k) => {
-      html += `<p><b>${k}:</b> ${totalPorProduto[k]} unidade(s)</p>`;
-    });
-
-    html += `
-      <h2>Totais por Turno</h2>
-      <p>Manhã: ${totalPorTurno["Manhã"]}</p>
-      <p>Tarde: ${totalPorTurno["Tarde"]}</p>
-      <p>Noite: ${totalPorTurno["Noite"]}</p>
-
-      <hr />
-
-      <h2>Tabela Completa</h2>
-      <table border="1" width="100%" style="border-collapse: collapse;">
-        <tr>
-          <th>Produto</th>
-          <th>Peso</th>
-          <th>Validade</th>
-          <th>Descrição</th>
-          <th>Recebimento</th>
-          <th>Turno</th>
-        </tr>
-        ${tabelaHTML}
-      </table>
-    `;
-
-    // === GERAR PDF ===
-    const file = await RNHTMLtoPDF.convert({
-      html,
-      fileName: `Relatorio_${dataSaida}`,
-      directory: "Documents",
-    });
-
-    // === VERIFICAR SE EXISTE ===
-    const exists = await RNFS.exists(file.filePath);
-    if (!exists) {
-      Alert.alert("Erro", "O arquivo PDF não foi encontrado.");
-      return;
-    }
-
-    // === ABRIR PDF ===
-    await FileViewer.open(file.filePath, {
-      showOpenWithDialog: true,
-      showAppsSuggestions: true,
-    });
-
-  } catch (err) {
-    console.log(err);
-    Alert.alert("Erro", "Não foi possível gerar ou abrir o PDF.");
-  }
-};
 
 
   return (
     <View style={styles.container}>
-      <ScrollView horizontal>
+      {/* Scroll Horizontal para a tabela inteira */}
+      <ScrollView horizontal={true}>
         <View>
-          <Table borderStyle={{ borderWidth: 1 }}>
+          
+          {/* --- TABELA 1: APENAS CABEÇALHO --- */}
+          <Table borderStyle={{ borderWidth: 1, borderColor: '#000' }}>
             <Row
               data={["Produto", "Peso", "Validade", "Descrição", "Recebimento", "Turno", "Ações"]}
+              widthArr={widthArr}
               style={styles.head}
-              textStyle={styles.text}
+              textStyle={styles.textHead}
             />
-
-            {tableData.map((row, index) => (
-              <Row
-                key={index}
-                data={
-                  editingIndex === index
-                    ? [
-                        <TextInput style={styles.input} value={editData[0]} onChangeText={(t) => setEditData([t, editData[1], editData[2], editData[3], editData[4], editData[5]])} />,
-                        <TextInput style={styles.input} value={editData[1]} onChangeText={(t) => setEditData([editData[0], t, editData[2], editData[3], editData[4], editData[5]])} />,
-                        <TextInput style={styles.input} value={editData[2]} onChangeText={(t) => setEditData([editData[0], editData[1], t, editData[3], editData[4], editData[5]])} />,
-                        <TextInput style={styles.input} value={editData[3]} onChangeText={(t) => setEditData([editData[0], editData[1], editData[2], t, editData[4], editData[5]])} />,
-                        <TextInput style={styles.input} value={editData[4]} onChangeText={(t) => setEditData([editData[0], editData[1], editData[2], editData[3], t, editData[5]])} />,
-                        <Text style={styles.text}>{editData[5]}</Text>,
-
-                        <View style={styles.buttonContainer}>
-                          <TouchableOpacity onPress={saveEditing} style={styles.button}><Text style={styles.buttonText}>Salvar</Text></TouchableOpacity>
-                          <TouchableOpacity onPress={cancelEditing} style={styles.button}><Text style={styles.buttonText}>Cancelar</Text></TouchableOpacity>
-                        </View>,
-                      ]
-                    : [
-                        row[0],
-                        row[1],
-                        row[2],
-                        row[3],
-                        row[4],
-                        row[5],
-                        <View style={styles.buttonContainer}>
-                          <TouchableOpacity onPress={() => startEditing(index)} style={styles.button}><Text style={styles.buttonText}>Editar</Text></TouchableOpacity>
-                          <TouchableOpacity onPress={() => deleteRow(index)} style={styles.button}><Text style={styles.buttonText}>Excluir</Text></TouchableOpacity>
-                        </View>,
-                      ]
-                }
-                textStyle={styles.text}
-              />
-            ))}
           </Table>
+
+          {/* --- SCROLL VERTICAL PARA OS DADOS --- */}
+          <ScrollView style={styles.dataWrapper}>
+            
+            {/* --- TABELA 2: CORPO DOS DADOS --- */}
+            {/* O segredo é colocar outra <Table> AQUI DENTRO */}
+            <Table borderStyle={{ borderWidth: 1, borderColor: '#000' }}>
+              {tableData.map((row, index) => (
+                <Row
+                  key={index}
+                  widthArr={widthArr}
+                  style={[styles.row, index % 2 && { backgroundColor: '#f1f8ff' }]} // Zebra style leve
+                  textStyle={styles.text}
+                  data={
+                    editingIndex === index ? [
+                      <TextInput style={styles.input} value={editData[0]} onChangeText={(t) => {let d=[...editData]; d[0]=t; setEditData(d)}} />,
+                      <TextInput style={styles.input} value={editData[1]} onChangeText={(t) => {let d=[...editData]; d[1]=t; setEditData(d)}} />,
+                      <TextInput style={styles.input} value={editData[2]} onChangeText={(t) => {let d=[...editData]; d[2]=t; setEditData(d)}} />,
+                      <TextInput style={styles.input} multiline value={editData[3]} onChangeText={(t) => {let d=[...editData]; d[3]=t; setEditData(d)}} />,
+                      <TextInput style={styles.input} value={editData[4]} onChangeText={(t) => {let d=[...editData]; d[4]=t; setEditData(d)}} />,
+                      <Text style={styles.text}>{editData[5]}</Text>,
+                      <View style={styles.buttonContainer}>
+                         <TouchableOpacity onPress={saveEditing} style={styles.btnSalvar}><Text style={styles.btnText}>✔</Text></TouchableOpacity>
+                         <TouchableOpacity onPress={cancelEditing} style={styles.btnCancelar}><Text style={styles.btnText}>✖</Text></TouchableOpacity>
+                      </View>
+                    ] : [
+                      row[0], row[1], row[2], row[3], row[4], row[5],
+                      <View style={styles.buttonContainer}>
+                        <TouchableOpacity onPress={() => startEditing(index)} style={styles.btnEditar}><Text style={styles.btnText}>Editar</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() => deleteRow(index)} style={styles.btnExcluir}><Text style={styles.btnText}>Excluir</Text></TouchableOpacity>
+                      </View>
+                    ]
+                  }
+                />
+              ))}
+            </Table>
+          </ScrollView>
         </View>
       </ScrollView>
 
@@ -212,31 +115,41 @@ const gerarPDF = async () => {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 12 },
-  head: { height: 40, backgroundColor: "#c6f7c6" },
-  text: { textAlign: "center" },
+  container: { flex: 1, padding: 16, backgroundColor: '#fff' },
+  
+  head: { 
+    height: 50, 
+    backgroundColor: "#c1f0c1" // Verde claro igual da imagem
+  },
+  textHead: { textAlign: "center", fontWeight: 'bold', color: '#000' },
+  
+  // Ajuste para colar a tabela de baixo na de cima sem borda dupla
+  dataWrapper: { marginTop: -1 }, 
+  
+  row: { 
+    minHeight: 45, // Altura mínima para caber os botões
+    backgroundColor: '#fff' 
+  },
+  text: { textAlign: "center", margin: 6, color: '#333' },
+  
   input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 5,
-    margin: 2,
-    width: 120,
-    textAlign: "center",
+    borderWidth: 1, borderColor: "#007bff", // Borda azul no input ao editar
+    padding: 0, margin: 2,
+    width: '95%', textAlign: "center", backgroundColor: '#fff',
+    height: 35, borderRadius: 4
   },
-  buttonContainer: { flexDirection: "row", justifyContent: "space-around" },
-  button: {
-    backgroundColor: "#007bff",
-    padding: 5,
-    margin: 2,
-    borderRadius: 5,
-  },
-  buttonText: { color: "#fff" },
+  
+  // Botões
+  buttonContainer: { flexDirection: "row", justifyContent: "center", alignItems: 'center', width: '100%', paddingVertical: 2 },
+  btnEditar: { backgroundColor: "#007bff", paddingVertical: 5, paddingHorizontal: 8, borderRadius: 4, marginRight: 4 },
+  btnExcluir: { backgroundColor: "#007bff", paddingVertical: 5, paddingHorizontal: 8, borderRadius: 4 },
+  btnSalvar: { backgroundColor: "#28a745", paddingVertical: 5, paddingHorizontal: 10, borderRadius: 4, marginRight: 4 },
+  btnCancelar: { backgroundColor: "#dc3545", paddingVertical: 5, paddingHorizontal: 10, borderRadius: 4 },
+  btnText: { color: "#fff", fontSize: 11, fontWeight: 'bold' },
+
   pdfButton: {
-    marginTop: 15,
-    backgroundColor: "#215727",
-    padding: 15,
-    borderRadius: 10,
-    alignItems: "center",
+    marginTop: 15, backgroundColor: "#215727",
+    padding: 15, borderRadius: 10, alignItems: "center",
   },
   pdfText: { color: "#fff", fontSize: 18, fontWeight: "bold" },
 });
