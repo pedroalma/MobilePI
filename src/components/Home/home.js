@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import estilo from '../../assets/estilo';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -69,12 +69,14 @@ export default () => {
           </TouchableOpacity>
         </View>
         
-        <TouchableOpacity
+        <View style={styles.viewCont}>
+          <TouchableOpacity
             style={styles.BotaoN1}
-            onPress={() => navigation.navigate('QuemSomos')}
+            onPress={() => Linking.openURL('https://www.gfranciscodeassis.org.br/')}
           >
             <Text style={styles.textB}>Nossa localização</Text>
           </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
