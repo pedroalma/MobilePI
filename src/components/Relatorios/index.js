@@ -52,7 +52,15 @@ export default function Relatorios() {
 
 
 
+  const totalWeight = tableData.reduce((sum, row) => {
+    const raw = row?.[1] ?? '0';
+    const num = parseFloat(String(raw).replace(',', '.').replace(/[^\d.-]/g, ''));
+    return sum + (isNaN(num) ? 0 : num);
+  }, 0);
+  const totalWeightFormatted = totalWeight.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
   return (
+    <ScrollView>
     <View style={styles.container}>
       {/* Scroll Horizontal para a tabela inteira */}
       <ScrollView horizontal={true}>
@@ -107,10 +115,21 @@ export default function Relatorios() {
         </View>
       </ScrollView>
 
+      {/* Totais: quantidade e peso */}
+      <View style={{ marginTop: 12, alignItems: 'center' }}>
+        <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#000' }}>
+          Total de produtos doados: {tableData.length}
+        </Text>
+        <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#000', marginTop: 6 }}>
+          Total de peso: {totalWeightFormatted} kg
+        </Text>
+      </View>
+
       <TouchableOpacity style={styles.pdfButton} onPress={gerarPDF}>
         <Text style={styles.pdfText}>📄 Gerar PDF</Text>
       </TouchableOpacity>
     </View>
+    </ScrollView>
   );
 }
 

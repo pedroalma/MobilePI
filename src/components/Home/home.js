@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Linking } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Linking,ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import estilo from '../../assets/estilo';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -9,6 +9,7 @@ import Icon3 from 'react-native-vector-icons/FontAwesome5';
 export default () => {
   const navigation = useNavigation();
   return (
+
     <View style={styles.container}>
       <View style={styles.viewContImg}>
         <View>

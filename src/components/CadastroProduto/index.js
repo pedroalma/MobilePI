@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TextInput, View, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { TextInput, View, StyleSheet, TouchableOpacity, Text,ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
@@ -39,25 +39,26 @@ function Cadastro() {
         setter(cleaned.slice(0, 10));
     };
  
-    const handleConfirm = () => {
-        if (!selecionaComida || !peso || !data || !descricao || !dataReceb) {
-            alert("⚠️ Preencha todos os campos!");
-            return;
-        }
- 
-        const novoItem = [selecionaComida, peso, data, descricao, dataReceb];
- 
-        navigation.navigate("Relatórios", { novoItem });
- 
-       
-        setSelecionaComida(null);
-        setPeso('');
-        setData('');
-        setDescricao('');
-        setDataReceb('');
-    };
+const handleConfirm = () => {
+    if (!selecionaComida || !peso || !data || !descricao || !dataReceb) {
+        alert("⚠️ Preencha todos os campos!");
+        return;
+    }
+
+    const novoItem = [selecionaComida, peso, data, descricao, dataReceb];
+
+    navigation.navigate("Relatórios", { novoItem });
+
+    setSelecionaComida(null);
+    setPeso('');
+    setData('');
+    setDescricao('');
+    // do not clear the receipt date; keep it as today's date
+    setDataReceb(getTodayDate());
+};
  
     return (
+        <ScrollView>
         <View style={styles.container}>
             <View style={styles.centralizaitem}>
                 <View style={styles.Pickerborder}>
@@ -135,6 +136,7 @@ function Cadastro() {
                 </TouchableOpacity>
             </View>
         </View>
+        </ScrollView>
     );
 }
  

@@ -1,21 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextInput, View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useNavigation } from "@react-navigation/native"; 
+import { useNavigation } from "@react-navigation/native";
 import Relatorios from "../Relatorios cestas";
 import { Icon } from "react-native-paper";
-
+ 
 const Tab = createBottomTabNavigator();
-
+ 
+const getTodayDate = () => {
+    const today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    return `${dd}/${mm}/${yyyy}`;
+};
+ 
 function Cadastro() {
-    const [selecionaComida, setSelecionaComida] = useState(null); 
+    const [selecionaComida, setSelecionaComida] = useState(null);
     const [produtosSelecionados, setProdutosSelecionados] = useState([]);
     const [descricao, setDescricao] = useState('');
     const [dataReceb, setDataReceb] = useState('');
-    
-    const navigation = useNavigation(); 
-
+   
+    const navigation = useNavigation();
+ 
+        useEffect(() => {
+            setDataReceb(getTodayDate());
+        }, []);
+ 
     const handleChange = (text, setter) => {
         let cleaned = text.replace(/\D/g, '');
         if (cleaned.length > 2 && cleaned.length <= 4) {
@@ -25,32 +37,32 @@ function Cadastro() {
         }
         setter(cleaned.slice(0, 10));
     };
-
+ 
     const handleAdicionarProduto = () => {
         if (selecionaComida) {
             const novosProdutos = [...produtosSelecionados, selecionaComida];
             setProdutosSelecionados(novosProdutos);
-            setDescricao(novosProdutos.join('\n')); 
-            setSelecionaComida(null); 
+            setDescricao(novosProdutos.join('\n'));
+            setSelecionaComida(null);
         }
     };
-
+ 
     const handleConfirm = () => {
         if (produtosSelecionados.length === 0 || !descricao || !dataReceb) {
             alert("⚠️ Preencha todos os campos!");
             return;
         }
-
+ 
         const novoItem = [produtosSelecionados, descricao, dataReceb];
-
+ 
         navigation.navigate("Relatórios", { novoItem });
-
-        
+ 
+       
         setProdutosSelecionados([]);
         setDescricao('');
         setDataReceb('');
     };
-
+ 
     return (
         <View style={styles.container}>
             <View style={styles.centralizaitem}>
@@ -70,28 +82,29 @@ function Cadastro() {
                         <Picker.Item label="Café" value="Café" />
                     </Picker>
                 </View>
-
+ 
                 <TouchableOpacity style={styles.btnadicionar} onPress={handleAdicionarProduto}>
                     <Text style={styles.txtbtnadicionar}>Adicionar Produto</Text>
                 </TouchableOpacity>
-
+ 
                 <TextInput
                     placeholder="Descrição"
                     style={styles.descricao}
                     multiline={true}
-                    value={descricao} 
-                    onChangeText={setDescricao} 
+                    value={descricao}
+                    onChangeText={setDescricao}
                 />
-
+ 
                 <TextInput
                     placeholder="Data de Saída"
                     style={styles.dtreceb}
                     maxLength={10}
                     keyboardType="numeric"
                     value={dataReceb}
+                    editable={false}
                     onChangeText={(t) => handleChange(t, setDataReceb)}
                 />
-
+ 
                 <TouchableOpacity style={styles.btnconfirm} onPress={handleConfirm}>
                     <Text style={styles.txtbtnconfirm}>Confirmar</Text>
                 </TouchableOpacity>
@@ -99,7 +112,7 @@ function Cadastro() {
         </View>
     );
 }
-
+ 
 export default function AppTabs() {
     return (
         <Tab.Navigator screenOptions={{
@@ -125,7 +138,7 @@ export default function AppTabs() {
         </Tab.Navigator>
     );
 }
-
+ 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -188,7 +201,7 @@ const styles = StyleSheet.create({
     btnadicionar: {
         width: 350,
         height: 50,
-        backgroundColor: "#215727", 
+        backgroundColor: "#215727",
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 10
