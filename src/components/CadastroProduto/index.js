@@ -101,15 +101,20 @@ const handleConfirm = () => {
                     </Picker>
                 </View>
  
- 
- 
                     <TextInput
-                        placeholder="Validade"
+                        placeholder="Validade (MM/AAAA)"
                         style={styles.input}
-                        maxLength={10}
+                        maxLength={7}
                         keyboardType="numeric"
                         value={data}
-                        onChangeText={(t) => handleChange(t, setData)}
+                        onChangeText={(t) => {
+                            // format as MM/YYYY and allow only month/year
+                            let digits = t.replace(/\D/g, '');
+                            if (digits.length > 2) {
+                                digits = digits.slice(0, 2) + '/' + digits.slice(2, 6);
+                            }
+                            setData(digits.slice(0, 7));
+                        }}
                     />
                 </View>
  

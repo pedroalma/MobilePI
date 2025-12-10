@@ -8,7 +8,7 @@ import CustomDrawer from "../view/CustomDrawer";
 import Home from "../components/Home/home";
 import Splash from "../components/Splash/Splash";
 import Login from "../components/Login/Login";
-import home from "../components/Home/home";
+
 import Atividades from "../components/Atividades/Atividades";
 import NossosHorarios from "../components/NossosHorarios/index";
 import QuemSomos from "../components/QuemSomos/QuemSomos";
@@ -19,14 +19,14 @@ import Cestas from "../components/Receber cestas/index";
 export default props => {
     const telas = [
   { name: "Splash", component: Splash, hide: true, header: false },
-  { name: "Home", component: Home,  header: false },
+  // { name: "Home", component: Login,  header: false },
   { name: "Login", component: Login, hide: true, header: false },
   { name: "Cadastro", component: Cadastro, hide: true },
   { name: "Cestas", component: Cestas, hide: true },
 
-  { name: "Atividades", component: Atividades },
-  { name: "NossosHorarios", component: NossosHorarios },
-  { name: "QuemSomos", component: QuemSomos },
+  // { name: "Atividades", component: Atividades },
+  // { name: "NossosHorarios", component: NossosHorarios },
+  // { name: "QuemSomos", component: QuemSomos },
   { name: "Dashboard", component: Dashboard },
 ];
 

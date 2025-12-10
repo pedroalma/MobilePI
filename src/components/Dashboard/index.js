@@ -15,7 +15,7 @@ export default props => {
                       alignItems: 'center',
                       
                     }}
-                    onPress={() => navigation.navigate('Home')}
+                    onPress={() => navigation.navigate('Login')}
                   >
                     <Image
                       source={require('../../assets/icons/logo1.png')}
