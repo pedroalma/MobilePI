@@ -62,7 +62,7 @@ const handleConfirm = () => {
         <View style={styles.container}>
             <View style={styles.centralizaitem}>
                 <View style={styles.Pickerborder}>
-                    <Picker
+                    <Picker 
                         selectedValue={selecionaComida}
                         onValueChange={(itemValue) => setSelecionaComida(itemValue)}
                         mode="dropdown"
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
             justifyContent: "center",
             alignSelf: "center",
             overflow: "hidden",
-       
+            color: "#000"
     },
     descricao: {
         borderWidth: 2,
@@ -204,7 +204,8 @@ const styles = StyleSheet.create({
         height: 150,
         borderRadius: 8,
         padding: 10,
-        textAlignVertical: "top"
+        textAlignVertical: "top",
+        color: "#000"
     },
     dtreceb: {
         borderWidth: 2,

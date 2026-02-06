@@ -2,31 +2,38 @@ import React, { useState, useCallback } from "react";
 import { StyleSheet, View, TextInput, TouchableOpacity, Text } from "react-native";
 import { Table, Row } from "react-native-table-component";
 import { useFocusEffect, useRoute, useNavigation } from "@react-navigation/native";
+import Orientation from "react-native-orientation-locker";
 
 export default function Relatorios() {
   const route = useRoute();
   const navigation = useNavigation();
+
   const [tableData, setTableData] = useState([]);
-  const [editingIndex, setEditingIndex] = useState(null); 
-  const [editData, setEditData] = useState([]); 
+  const [editingIndex, setEditingIndex] = useState(null);
+  const [editData, setEditData] = useState([]);
 
   useFocusEffect(
     useCallback(() => {
+      // 🔒 trava a tela em modo retrato
+      Orientation.lockToPortrait();
+
       if (route.params?.novoItem) {
         setTableData((prev) => [...prev, route.params.novoItem]);
-        
         navigation.setParams({ novoItem: null });
       }
+
+      // 🔓 libera orientação ao sair da tela
+      return () => {
+        Orientation.unlockAllOrientations();
+      };
     }, [route.params, navigation])
   );
 
- 
   const startEditing = (index) => {
     setEditingIndex(index);
-    setEditData([...tableData[index]]); 
+    setEditData([...tableData[index]]);
   };
 
-  
   const saveEditing = () => {
     const newData = [...tableData];
     newData[editingIndex] = editData;
@@ -35,13 +42,11 @@ export default function Relatorios() {
     setEditData([]);
   };
 
-  
   const cancelEditing = () => {
     setEditingIndex(null);
     setEditData([]);
   };
 
-  
   const deleteRow = (index) => {
     setTableData((prev) => prev.filter((_, i) => i !== index));
   };
@@ -49,12 +54,12 @@ export default function Relatorios() {
   return (
     <View style={styles.container}>
       <Table borderStyle={{ borderWidth: 1 }}>
-        
         <Row
           data={["Produtos", "Descrição", "Data de Saída", "Ações"]}
           style={styles.head}
           textStyle={styles.text}
         />
+
         {tableData.map((row, index) => (
           <Row
             key={index}
@@ -63,10 +68,10 @@ export default function Relatorios() {
                 ? [
                     <TextInput
                       style={styles.input}
-                      value={editData[0]?.join(', ') || ""}
+                      value={Array.isArray(editData[0]) ? editData[0].join(", ") : ""}
                       onChangeText={(text) => {
                         const newEdit = [...editData];
-                        newEdit[0] = text.split(', '); 
+                        newEdit[0] = text.split(", ");
                         setEditData(newEdit);
                       }}
                     />,
@@ -88,7 +93,6 @@ export default function Relatorios() {
                         setEditData(newEdit);
                       }}
                     />,
-
                     <View style={styles.buttonContainer}>
                       <TouchableOpacity onPress={saveEditing} style={styles.button}>
                         <Text style={styles.buttonText}>Salvar</Text>
@@ -99,11 +103,9 @@ export default function Relatorios() {
                     </View>,
                   ]
                 : [
-                    
-                    Array.isArray(row[0]) ? row[0].join(', ') : row[0], 
-                    row[1], 
-                    row[2], 
-                    
+                    Array.isArray(row[0]) ? row[0].join(", ") : row[0],
+                    row[1],
+                    row[2],
                     <View style={styles.buttonContainer}>
                       <TouchableOpacity onPress={() => startEditing(index)} style={styles.button}>
                         <Text style={styles.buttonText}>Editar</Text>
@@ -123,9 +125,17 @@ export default function Relatorios() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16 },
-  head: { height: 40, backgroundColor: "#f1f8ff" },
-  text: { textAlign: "center" },
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+  head: {
+    height: 40,
+    backgroundColor: "#f1f8ff",
+  },
+  text: {
+    textAlign: "center",
+  },
   input: {
     borderWidth: 1,
     borderColor: "#ccc",
@@ -134,12 +144,18 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: "center",
   },
-  buttonContainer: { flexDirection: "row", justifyContent: "space-around" },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
   button: {
     backgroundColor: "#007bff",
     padding: 5,
     margin: 2,
     borderRadius: 5,
   },
-  buttonText: { color: "#fff", textAlign: "center" },
+  buttonText: {
+    color: "#fff",
+    textAlign: "center",
+  },
 });

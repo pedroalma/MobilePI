@@ -7,6 +7,7 @@ import {
   Image,
   Text,
   Alert,
+  ScrollView
 } from "react-native";
 
 export default ({ navigation }) => {
@@ -25,6 +26,7 @@ export default ({ navigation }) => {
   };
 
   return (
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
     <View style={styles.container}>
       <Image
         style={styles.imgLogo}
@@ -67,6 +69,7 @@ export default ({ navigation }) => {
         </TouchableOpacity>
       </View>
     </View>
+    </ScrollView>
   );
 };
 

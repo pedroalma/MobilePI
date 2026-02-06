@@ -21,12 +21,13 @@ export default props => {
   { name: "Splash", component: Splash, hide: true, header: false },
   // { name: "Home", component: Login,  header: false },
   { name: "Login", component: Login, hide: true, header: false },
-  { name: "Cadastro", component: Cadastro, hide: true },
+  { name: "Cadastro", component: Cadastro, },
   { name: "Cestas", component: Cestas, hide: true },
 
   // { name: "Atividades", component: Atividades },
   // { name: "NossosHorarios", component: NossosHorarios },
   // { name: "QuemSomos", component: QuemSomos },
+  
   { name: "Dashboard", component: Dashboard },
 ];
 
@@ -36,7 +37,10 @@ export default props => {
   screenOptions={{
     headerShown: true,
     drawerActiveTintColor: '#FFFFFF',
+    drawerInactiveTintColor: '#FFFFFF',
+    drawerInactiveBackgroundColor: '#215727',
     drawerActiveBackgroundColor: '#215727',
+    
     headerStyle: {
       elevation: 0,
       shadowOpacity: 0,
@@ -45,15 +49,16 @@ export default props => {
 >
   {telas.map((tela) => (
     <Drawer.Screen
-      key={tela.name}
-      name={tela.name}
-      component={tela.component}
-      options={{
-        headerShown: tela.header === false ? false : true,
-        drawerItemStyle: tela.hide ? { display: "none" } : undefined,
-        
-      }}
-    />
+  key={tela.name}
+  name={tela.name}
+  component={tela.component}
+  options={{
+    headerShown: tela.header === false ? false : true,
+    drawerItemStyle: tela.hide
+      ? { display: "none" }
+      : { marginVertical: 8 }, 
+  }}
+/>
   ))}
 </Drawer.Navigator>
 

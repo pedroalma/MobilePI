@@ -158,7 +158,8 @@ const styles = StyleSheet.create({
         height: 150,
         borderRadius: 8,
         padding: 10,
-        textAlignVertical: "top"
+        textAlignVertical: "top",
+        color: "#000"
     },
     dtreceb: {
         borderWidth: 2,
@@ -166,11 +167,13 @@ const styles = StyleSheet.create({
         width: 350,
         height: 50,
         borderRadius: 8,
-        padding: 10
+        padding: 10,
+        color: "#000"
     },
     Picker: {
         height: 50,
-        width: 340
+        width: 340,
+        color: "#000"
     },
     Pickerborder: {
         alignItems: "center",

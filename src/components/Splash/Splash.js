@@ -17,7 +17,7 @@ export default ({ navigation }) => {
                 source={require('../../assets/icons/logo.png')}
                 style={styles.imgLogo}
             />
-            <Text style={styles.txtTitulo}>Francisco De Assis</Text>
+            <Text style={styles.txtTitulo}>Grupo Socorrista Francisco de Assis</Text>
             <ProgressBar
                 progress={0.5}
                 color="#215727"
@@ -43,10 +43,11 @@ const styles = StyleSheet.create({
     marginBottom: 18,
   },
   txtTitulo: {
-    fontSize: 35,
+    fontSize: 30,
     color: '#000',
     fontFamily: 'Roboto-Light',
     padding: 30,
+    textAlign: 'center',
   },
    barraProgresso: {
         width: 300,
