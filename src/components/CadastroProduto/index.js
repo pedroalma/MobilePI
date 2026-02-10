@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { TextInput, View, StyleSheet, TouchableOpacity, Text,ScrollView } from "react-native";
+import { TextInput, View, StyleSheet, TouchableOpacity, Text, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import Relatorios from "../Relatorios";
 import { Icon } from "react-native-paper";
- 
+
 const Tab = createBottomTabNavigator();
- 
+
 const getTodayDate = () => {
     const today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
@@ -15,20 +15,21 @@ const getTodayDate = () => {
     const yyyy = today.getFullYear();
     return `${dd}/${mm}/${yyyy}`;
 };
- 
+
 function Cadastro() {
     const [selecionaComida, setSelecionaComida] = useState(null);
     const [peso, setPeso] = useState('');
+    const [quantidade, setQuantidade] = useState('');
     const [data, setData] = useState('');
     const [descricao, setDescricao] = useState('');
     const [dataReceb, setDataReceb] = useState('');
    
     const navigation = useNavigation();
- 
+
     useEffect(() => {
         setDataReceb(getTodayDate());
     }, []);
- 
+
     const handleChange = (text, setter) => {
         let cleaned = text.replace(/\D/g, '');
         if (cleaned.length > 2 && cleaned.length <= 4) {
@@ -38,25 +39,28 @@ function Cadastro() {
         }
         setter(cleaned.slice(0, 10));
     };
- 
-const handleConfirm = () => {
-    if (!selecionaComida || !peso || !data || !descricao || !dataReceb) {
-        alert("⚠️ Preencha todos os campos!");
-        return;
-    }
 
-    const novoItem = [selecionaComida, peso, data, descricao, dataReceb];
+    const handleConfirm = () => {
+        if (!selecionaComida || !peso || !quantidade || !data || !descricao || !dataReceb) {
+            alert("⚠️ Preencha todos os campos!");
+            return;
+        }
 
-    navigation.navigate("Relatórios", { novoItem });
+        // Corrigido: incluir quantidade no novoItem (ordem: Produto, Peso, Quantidade, Validade, Descrição, Recebimento)
+        const novoItem = [selecionaComida, peso, quantidade, data, descricao, dataReceb];
 
-    setSelecionaComida(null);
-    setPeso('');
-    setData('');
-    setDescricao('');
-    // do not clear the receipt date; keep it as today's date
-    setDataReceb(getTodayDate());
-};
- 
+        navigation.navigate("Relatórios", { novoItem });
+
+        // Reset dos campos
+        setSelecionaComida(null);
+        setPeso('');
+        setQuantidade('');  // Adicionado: limpar quantidade
+        setData('');
+        setDescricao('');
+        // Não limpar dataReceb, pois é a data de hoje e não editável
+        setDataReceb(getTodayDate());
+    };
+
     return (
         <ScrollView>
         <View style={styles.container}>
@@ -77,8 +81,7 @@ const handleConfirm = () => {
                         <Picker.Item label="Café" value="Café" />
                     </Picker>
                 </View>
- 
-                <View style={{ alignItems: "center", gap: 45, justifyContent: "center", flexDirection: "row" }}>
+                <View style={{flex: 2, gap: 10, justifyContent: "flex-start", flexDirection: "row", flexWrap: "wrap", paddingLeft:45 }}>
                
                     <View style={styles.inputPicker}>
                     <Picker
@@ -100,7 +103,14 @@ const handleConfirm = () => {
                         <Picker.Item label="1L" value="1L" />
                     </Picker>
                 </View>
- 
+
+                <TextInput
+                    placeholder="Quantidade"
+                    style={styles.input}
+                    multiline={false}
+                    value={quantidade}
+                    onChangeText={setQuantidade}
+                />
                     <TextInput
                         placeholder="Validade (MM/AAAA)"
                         style={styles.input}
@@ -117,7 +127,7 @@ const handleConfirm = () => {
                         }}
                     />
                 </View>
- 
+
                 <TextInput
                     placeholder="Descrição"
                     style={styles.descricao}
@@ -125,7 +135,7 @@ const handleConfirm = () => {
                     value={descricao}
                     onChangeText={setDescricao}
                 />
- 
+
                 <TextInput
                     placeholder="Data de Recebimento"
                     style={styles.dtreceb}
@@ -135,7 +145,7 @@ const handleConfirm = () => {
                     onChangeText={(t) => handleChange(t, setDataReceb)}
                     editable={false}
                 />
- 
+
                 <TouchableOpacity style={styles.btnconfirm} onPress={handleConfirm}>
                     <Text style={styles.txtbtnconfirm}>Confirmar</Text>
                 </TouchableOpacity>
@@ -144,7 +154,7 @@ const handleConfirm = () => {
         </ScrollView>
     );
 }
- 
+
 export default function AppTabs() {
     return (
         <Tab.Navigator screenOptions={{
@@ -170,7 +180,7 @@ export default function AppTabs() {
         </Tab.Navigator>
     );
 }
- 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
